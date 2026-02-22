@@ -57,45 +57,90 @@ A personal book library web application built from Goodreads exports. Browse, se
 
 ## Getting Started
 
-### 1. View Locally
+### Prerequisites
 
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/My-Library.git
-cd My-Library
+This project requires:
+- **Python 3.7+** (for data rebuilding)
+- **Web browser** (modern: Chrome, Firefox, Safari, Edge)
+- **Two CSV files** (see Data Format below)
 
-# Serve locally (Python 3.11+)
-python -m http.server 8000
+### Data Format
+
+#### goodreads_library_export.csv
+Export from Goodreads account (Settings → Export Library). Required columns:
+```
+Title, Author, ISBN, My Rating, Average Rating, Number of Pages, 
+Date Read, Exclusive Shelf, Date Added, ...
 ```
 
-Then open `http://localhost:8000` in your browser.
+Example:
+```
+Title,Author,ISBN,My Rating,Average Rating,Number of Pages,Date Read,Exclusive Shelf,Date Added
+1Q84,Haruki Murakami,9784087711653,5,3.94,928,2023/12/18,read,2023/12/18
+Educated,Tara Westover,9780544716314,5,4.17,352,2024/01/05,read,2024/01/05
+```
 
-### 2. Rebuild Library Data
+#### owned_books.csv
+Manual CSV for books you own but aren't on Goodreads. Format:
+```
+title,author,condition
+The Hidden Life of Trees,Peter Wohlleben,used
+```
 
-If you update the CSV files (`goodreads_library_export.csv`, `owned_books.csv`):
+All three columns required: `title`, `author`, `condition`.
+
+### Installation & Local Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/My-Library.git
+   cd My-Library
+   ```
+
+2. **Ensure CSV files exist**
+   - Place `goodreads_library_export.csv` in project root
+   - Place `owned_books.csv` in project root (or create empty one if not needed)
+
+3. **Serve locally** (Python 3.7+)
+   ```bash
+   python -m http.server 8000
+   ```
+   Then open `http://localhost:8000` in your browser.
+
+### Rebuilding the Library Data
+
+If you update the CSV files:
 
 ```bash
+# Optional: Delete old cache for clean rebuild
+del library_data.json
+del image_mapping.json
+
+# Rebuild from CSVs
 python build_library.py
 ```
 
 This will:
-- Merge owned books with Goodreads entries
-- Normalize titles and deduplicate
-- Assign categories
-- Generate `library_data.json`
+- Load `goodreads_library_export.csv` and `owned_books.csv`
+- Merge and deduplicate entries
+- Assign categories (Fiction/Non-Fiction/Spirituality)
+- Generate `library_data.json` (273 books in current version)
 
-### 3. Download/Update Images
+### Downloading/Updating Cover Images
 
-To refresh cover images from Goodreads:
+To refresh cover images from Goodreads (first run takes 5-10 minutes):
 
 ```bash
 python download_images.py
 ```
 
 This will:
-- Scrape cover URLs from Goodreads
-- Download images locally to `images/` folder
+- Scrape Goodreads for cover URLs
+- Download images to `images/` folder
 - Update `image_mapping.json`
+- Show success rate (~95%+ coverage)
+
+After download, reload the web app to see new covers.
 
 ## Data Sources
 
