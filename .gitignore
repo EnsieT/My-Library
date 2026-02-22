@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Temp/Backup files
+*.log
+*.bak
+*_backup.*
+*_old.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated (can be rebuilt from source)
+# Keep these tracked as they're final outputs:
+# library_data.json - keep (generated but represents final dedup state)
+# image_mapping.json - keep (tracks successful downloads)
+# reviews_data.json - keep (generated output)
