@@ -6289,13 +6289,13 @@
           ]
         }
       ],
-      "in_collection": false,
-      "condition": null,
+      "in_collection": true,
+      "condition": "Good",
       "review": null,
       "date_read": "",
-      "date_added": "",
-      "pages": "",
-      "avg_rating": ""
+      "date_added": "2026/02/25",
+      "pages": "176",
+      "avg_rating": "3.95"
     }
   ]
 }
