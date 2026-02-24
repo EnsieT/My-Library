@@ -1,6 +1,6 @@
-# My Library
+# Jigar's Book Chronicle
 
-A personal book library web application built from Goodreads exports. Browse, search, filter, and review your entire book collection with a beautiful, dark-themed interface.
+A personal book tracking application built from Goodreads exports. Browse, search, filter, and review your reading journey with a beautiful, dark-themed interface. Track books you've read, currently own, lent to friends, and lost over time.
 
 ## Features
 
@@ -28,11 +28,12 @@ A personal book library web application built from Goodreads exports. Browse, se
 - Mobile: 2-column book grid, full-screen modals
 - Touch-friendly tap targets (44px minimum)
 
-📚 **Book Management**
+� **Book Management**
 - Track reading dates (date_read, date_added)
-- Mark books as owned, read, currently reading, or to-read
-- View extended book details in modal popups
-- Deduplication logic to handle owned + Goodreads entries
+- Monitor books in your current collection (in_collection flag)
+- Record books lent to friends with tracking_status
+- Track books marked as read, currently reading, or to-read
+- View extended book details and reviews
 
 ## Technology Stack
 
