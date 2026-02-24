@@ -415,6 +415,8 @@
             <button class="btn-primary" onclick="showSection('add')">➕ Add Book</button>
             <button class="btn-success" onclick="downloadJSON()">⬇️ Download JSON</button>
             <button class="btn-secondary" onclick="loadFromFile()">⬆️ Load from File</button>
+            <button id="githubBtn" class="btn-success" onclick="toggleGitHubAuth()" style="display:none;">🔒 Login to GitHub</button>
+            <button id="saveGithubBtn" class="btn-success" onclick="saveToGitHub()" style="display:none;">💾 Save to GitHub</button>
         </nav>
 
         <div class="content">
@@ -977,6 +979,161 @@
             };
             return text.replace(/[&<>"']/g, m => map[m]);
         }
+
+        // GitHub Authentication & Saving
+        let githubToken = sessionStorage.getItem('githubToken') || null;
+        const REPO_OWNER = 'EnsieT';
+        const REPO_NAME = 'My-Library';
+
+        function initGitHub() {
+            const githubBtn = document.getElementById('githubBtn');
+            const saveGithubBtn = document.getElementById('saveGithubBtn');
+            
+            if (githubToken) {
+                githubBtn.textContent = '✅ GitHub Connected';
+                githubBtn.style.background = '#48bb78';
+                saveGithubBtn.style.display = 'inline-block';
+            } else {
+                githubBtn.style.display = 'inline-block';
+                githubBtn.textContent = '🔓 Login to GitHub';
+            }
+        }
+
+        function toggleGitHubAuth() {
+            if (githubToken) {
+                githubToken = null;
+                sessionStorage.removeItem('githubToken');
+                document.getElementById('githubBtn').textContent = '🔓 Login to GitHub';
+                document.getElementById('saveGithubBtn').style.display = 'none';
+                showMessage('✓ GitHub disconnected', 'success');
+                initGitHub();
+            } else {
+                promptGitHubToken();
+            }
+        }
+
+        function promptGitHubToken() {
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-modal" onclick="this.closest('.modal').remove()">&times;</span>
+                    <div class="modal-header">GitHub Authentication</div>
+                    <p style="margin-bottom: 15px; color: #4a5568;">
+                        To save changes to GitHub, you need a Personal Access Token.
+                    </p>
+                    <div style="background: #f7fafc; padding: 15px; border-radius: 5px; margin-bottom: 15px; font-size: 0.9em;">
+                        <strong>Steps to get your token:</strong><br>
+                        1. Go to <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings → Personal access tokens</a><br>
+                        2. Click "Generate new token (classic)"<br>
+                        3. Select scopes: <code>repo</code> (full control of private repositories)<br>
+                        4. Generate and copy the token<br>
+                        5. Paste it below (only stored in browser memory)
+                    </div>
+                    <div class="form-group">
+                        <label>GitHub Personal Access Token:</label>
+                        <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx...">
+                    </div>
+                    <button class="btn-success" onclick="saveToken()" style="width: 100%; margin-bottom: 10px;">Save Token</button>
+                    <button class="btn-secondary" onclick="this.closest('.modal').remove()" style="width: 100%;">Cancel</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function saveToken() {
+            const token = document.getElementById('tokenInput').value.trim();
+            if (!token) {
+                showMessage('Please enter a token', 'error');
+                return;
+            }
+            
+            githubToken = token;
+            sessionStorage.setItem('githubToken', token);
+            document.querySelector('.modal').remove();
+            showMessage('✓ GitHub token saved (browser memory only)', 'success');
+            initGitHub();
+        }
+
+        async function saveToGitHub() {
+            if (!githubToken) {
+                showMessage('Please authenticate with GitHub first', 'error');
+                return;
+            }
+
+            if (!libraryData) {
+                showMessage('No library data loaded', 'error');
+                return;
+            }
+
+            const saveBtn = document.getElementById('saveGithubBtn');
+            saveBtn.disabled = true;
+            saveBtn.textContent = '⏳ Saving...';
+
+            try {
+                // Get current file SHA (needed for update)
+                const shaResponse = await fetch(
+                    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/library_data.json`,
+                    {
+                        headers: {
+                            'Authorization': `token ${githubToken}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    }
+                );
+
+                if (!shaResponse.ok) {
+                    throw new Error('Could not access repo. Check token permissions.');
+                }
+
+                const fileData = await shaResponse.json();
+                const sha = fileData.sha;
+
+                // Prepare commit data
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(libraryData, null, 2))));
+                const message = `Update library via admin panel: ${new Date().toLocaleString()}`;
+
+                // Push to GitHub
+                const commitResponse = await fetch(
+                    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/library_data.json`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${githubToken}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: message,
+                            content: content,
+                            sha: sha,
+                            branch: 'main'
+                        })
+                    }
+                );
+
+                if (!commitResponse.ok) {
+                    const error = await commitResponse.json();
+                    if (commitResponse.status === 403) {
+                        throw new Error('Access denied. You need write permission on the repo.');
+                    }
+                    throw new Error(error.message || 'Failed to commit');
+                }
+
+                showMessage('✅ Changes saved to GitHub! 📚', 'success');
+            } catch (error) {
+                const message = error.message.includes('403') 
+                    ? '❌ You don\'t have permission to push changes' 
+                    : '❌ Error: ' + error.message;
+                showMessage(message, 'error');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = '💾 Save to GitHub';
+            }
+        }
+
+        // Initialize GitHub button on load
+        window.addEventListener('DOMContentLoaded', initGitHub);
     </script>
 </body>
 </html>
