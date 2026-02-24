@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>My Library</title>
+<title>Jigar's Book Chronicle</title>
 <style>
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -346,7 +346,9 @@ a:hover { text-decoration: underline; }
   text-transform: uppercase;
   letter-spacing: .03em;
 }
-.badge-owned { background: rgba(74,222,128,.12); color: var(--green); border: 1px solid rgba(74,222,128,.2); }
+.badge-in-collection { background: rgba(74,222,128,.12); color: var(--green); border: 1px solid rgba(74,222,128,.2); }
+.badge-lent { background: rgba(251,113,133,.12); color: var(--rose); border: 1px solid rgba(251,113,133,.2); }
+.badge-lost { background: rgba(229,51,51,.12); color: #ef4444; border: 1px solid rgba(229,51,51,.2); }
 .badge-review { background: rgba(124,109,240,.12); color: var(--accent2); border: 1px solid rgba(124,109,240,.2); }
 .badge-reading { background: rgba(74,222,128,.2); color: var(--green); border: 1px solid rgba(74,222,128,.3); }
 .badge-toread { background: rgba(251,146,60,.12); color: var(--orange); border: 1px solid rgba(251,146,60,.2); }
@@ -810,7 +812,7 @@ a:hover { text-decoration: underline; }
 
 <!-- ===== HEADER ===== -->
 <div class="header">
-  <h1>My <span>Library</span></h1>
+  <h1>Jigar's <span>Book Chronicle</span></h1>
   <div class="header-sub" id="headerSub">Loading...</div>
   <div class="currently-reading" id="currentlyReading" style="display:none"></div>
 </div>
@@ -1001,9 +1003,9 @@ function init(libData) {
   // Header
   const total = BOOKS.length;
   const read = BOOKS.filter(b => b.status === 'read').length;
-  const owned = BOOKS.filter(b => b.owned).length;
+  const inCollection = BOOKS.filter(b => b.in_collection).length;
   document.getElementById('headerSub').textContent =
-    `${total} books · ${read} read · ${owned} owned`;
+    `${total} books · ${read} read · ${inCollection} in collection`;
   
   // Currently reading
   const reading = BOOKS.filter(b => b.status === 'currently-reading');
@@ -1029,7 +1031,8 @@ function buildOverviewStats() {
   const total = BOOKS.length;
   const read = BOOKS.filter(b => b.status === 'read').length;
   const reviews = BOOKS.filter(b => b.review).length;
-  const owned = BOOKS.filter(b => b.owned).length;
+  const inCollection = BOOKS.filter(b => b.in_collection).length;
+  const lent = BOOKS.filter(b => b.tracking_status && b.tracking_status.startsWith('Lent')).length;
   const fiveStars = BOOKS.filter(b => b.rating === 5).length;
   const pages = BOOKS.reduce((s, b) => s + (parseInt(b.pages) || 0), 0);
   const authors = new Set(BOOKS.map(b => b.author)).size;
@@ -1038,7 +1041,7 @@ function buildOverviewStats() {
     { num: total, label: 'Total Books', color: 'var(--accent2)' },
     { num: read, label: 'Books Read', color: 'var(--green)' },
     { num: reviews, label: 'Reviews', color: 'var(--blue)' },
-    { num: owned, label: 'Owned', color: 'var(--orange)' },
+    { num: inCollection, label: 'In Collection', color: 'var(--orange)' },
     { num: fiveStars, label: '5-Star Reads', color: 'var(--gold)' },
     { num: pages.toLocaleString(), label: 'Total Pages', color: 'var(--rose)' },
     { num: authors, label: 'Authors', color: 'var(--accent2)' },
@@ -1321,7 +1324,12 @@ function renderBookCards(books) {
       : `<div class="book-placeholder"><div class="icon">📖</div><div class="ph-title">${escHtml(b.title)}</div></div>`;
     
     let badges = '';
-    if (b.owned) badges += '<span class="badge badge-owned">Owned</span>';
+    if (b.in_collection) badges += '<span class="badge badge-in-collection">In Collection</span>';
+    if (b.tracking_status) {
+      if (b.tracking_status.startsWith('Lent')) badges += '<span class="badge badge-lent">📤 ' + b.tracking_status + '</span>';
+      else if (b.tracking_status === 'Lost') badges += '<span class="badge badge-lost">❌ Lost</span>';
+      else badges += '<span class="badge badge-lent">' + b.tracking_status + '</span>';
+    }
     if (b.review) badges += '<span class="badge badge-review" onclick="event.stopPropagation();goToReview(\'' + escAttr(b.title) + '\',\'' + escAttr(b.author) + '\')" title="Click to read review">Review</span>';
     if (b.status === 'currently-reading') badges += '<span class="badge badge-reading">Reading</span>';
     if (b.status === 'to-read') badges += '<span class="badge badge-toread">To Read</span>';
@@ -1548,7 +1556,8 @@ function openModal(title, author) {
   if (book.status === 'read') details.push('✅ Read');
   if (book.status === 'currently-reading') details.push('📖 Reading');
   if (book.status === 'to-read') details.push('📋 To Read');
-  if (book.owned) details.push(`📦 Owned${book.condition ? ' · ' + book.condition : ''}`);
+  if (book.in_collection) details.push(`📦 In Collection${book.condition ? ' · ' + book.condition : ''}`);
+  if (book.tracking_status) details.push(`📍 ${book.tracking_status}`);
   if (book.avg_rating) details.push(`⭐ Avg: ${book.avg_rating}`);
   if (book.date_read) details.push(`📅 Read: ${formatDate(book.date_read)}`);
   if (book.date_added) details.push(`📥 Added: ${formatDate(book.date_added)}`);
