@@ -1557,17 +1557,18 @@
                 if (!commitResponse.ok) {
                     const error = await commitResponse.json();
                     if (commitResponse.status === 403) {
-                        throw new Error('Access denied. You need write permission on the repo.');
+                        throw new Error('Access denied (403). Your token needs "Contents: Read & Write" permission. API says: ' + (error.message || 'Forbidden'));
                     }
-                    throw new Error(error.message || 'Failed to commit');
+                    if (commitResponse.status === 404) {
+                        throw new Error('Repo not found (404). Check REPO_OWNER/REPO_NAME or token scope.');
+                    }
+                    throw new Error(`HTTP ${commitResponse.status}: ${error.message || 'Failed to commit'}`);
                 }
 
                 showMessage('✅ Changes saved to GitHub! 📚', 'success');
             } catch (error) {
-                const message = error.message.includes('403') 
-                    ? '❌ You don\'t have permission to push changes' 
-                    : '❌ Error: ' + error.message;
-                showMessage(message, 'error');
+                showMessage('❌ Error: ' + error.message, 'error');
+                console.error('GitHub save error:', error);
             } finally {
                 saveBtn.disabled = false;
                 saveBtn.textContent = '💾 Save to GitHub';
