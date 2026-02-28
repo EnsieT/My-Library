@@ -245,6 +245,123 @@ a:hover { text-decoration: underline; }
 .bar-fill { height: 100%; border-radius: 3px; transition: width .6s ease; }
 .bar-count { min-width: 28px; text-align: right; color: var(--text2); font-size: .8rem; }
 
+/* ===== PICKS FOR YOU ===== */
+.picks-panel {
+  max-width: 1400px;
+  margin: 32px auto 24px;
+  padding: 0 24px;
+}
+.picks-header { margin-bottom: 20px; }
+.picks-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.picks-subtitle { color: var(--text2); font-size: .9rem; margin-bottom: 4px; }
+.picks-meta { color: var(--text2); font-size: .82rem; font-style: italic; opacity: .7; }
+.picks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.pick-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  transition: border-color .2s, transform .2s;
+  position: relative;
+  overflow: hidden;
+}
+.pick-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--orange));
+}
+.pick-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.pick-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--gold);
+  opacity: .3;
+  line-height: 1;
+  min-width: 30px;
+}
+.pick-body { flex: 1; }
+.pick-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.pick-author {
+  font-size: .85rem;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+.pick-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.pick-tag {
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+.pages-tag {
+  background: transparent !important;
+  border: 1px solid var(--border);
+  color: var(--text2) !important;
+}
+.pick-reason {
+  font-size: .83rem;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.pick-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #f5c542, #fb923c);
+  color: #1a1a24;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.picks-method {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.picks-method h3 {
+  font-size: .9rem;
+  color: var(--text2);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.picks-method p {
+  font-size: .85rem;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.picks-method strong { color: var(--text); }
+
 /* ===== CATEGORY SECTIONS ===== */
 .category-section {
   max-width: 1400px;
@@ -863,6 +980,78 @@ a:hover { text-decoration: underline; }
   <div class="insights-panel">
     <div class="insights-grid" id="insightsGrid"></div>
   </div>
+
+  <!-- Picks For You Section -->
+  <div class="picks-panel">
+    <div class="picks-header">
+      <h2 class="picks-title">🌟 Picks For You</h2>
+      <p class="picks-subtitle">Based on your reading history, ratings, and favorite genres — books we think you'd absolutely love.</p>
+      <p class="picks-meta">Predicted rating: ★★★★★ — curated by analyzing your 5-star reads, top categories, and the authors you keep coming back to.</p>
+    </div>
+    <div class="picks-grid">
+
+      <div class="pick-card">
+        <div class="pick-number">1</div>
+        <div class="pick-body">
+          <div class="pick-title">Three Men in a Boat</div>
+          <div class="pick-author">by Jerome K. Jerome</div>
+          <div class="pick-tags"><span class="pick-tag" style="background:var(--fiction)">Fiction</span><span class="pick-tag" style="background:var(--orange)">Humor</span><span class="pick-tag pages-tag">~230 pg</span></div>
+          <p class="pick-reason">You gave P.G. Wodehouse 15 high ratings and love Douglas Adams' wit. Jerome K. Jerome is the godfather of British comic writing — absurd narration, bumbling characters, and laugh-out-loud moments on a boat trip down the Thames. If Wodehouse is your favorite author, this book might as well have been written for you.</p>
+          <div class="pick-badge">⭐ Predicted 5★ — by GitHub Copilot</div>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <div class="pick-number">2</div>
+        <div class="pick-body">
+          <div class="pick-title">A Confederacy of Dunces</div>
+          <div class="pick-author">by John Kennedy Toole</div>
+          <div class="pick-tags"><span class="pick-tag" style="background:var(--fiction)">Fiction</span><span class="pick-tag" style="background:var(--rose)">Satire</span><span class="pick-tag" style="background:var(--orange)">Humor</span><span class="pick-tag pages-tag">~394 pg</span></div>
+          <p class="pick-reason">You rated Catch-22, Animal Farm, and The Great Indian Novel all 5 stars — you clearly love sharp satire with unforgettable characters. Ignatius J. Reilly is one of the most gloriously absurd protagonists in literature. Pulitzer Prize-winning, laugh-till-you-cry funny, and deeply clever.</p>
+          <div class="pick-badge">⭐ Predicted 5★ — by GitHub Copilot</div>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <div class="pick-number">3</div>
+        <div class="pick-body">
+          <div class="pick-title">Small Gods</div>
+          <div class="pick-author">by Terry Pratchett</div>
+          <div class="pick-tags"><span class="pick-tag" style="background:var(--fiction)">Fiction</span><span class="pick-tag" style="background:var(--blue)">Fantasy</span><span class="pick-tag" style="background:var(--rose)">Satire</span><span class="pick-tag pages-tag">~389 pg</span></div>
+          <p class="pick-reason">You rated Good Omens (Pratchett + Gaiman) 4 stars and adore Hitchhiker's Guide. Small Gods is Pratchett at his philosophical best — a standalone Discworld novel about religion, belief, and a god turned into a tortoise. If you loved Douglas Adams, Pratchett is the natural next obsession.</p>
+          <div class="pick-badge">⭐ Predicted 5★ — by GitHub Copilot</div>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <div class="pick-number">4</div>
+        <div class="pick-body">
+          <div class="pick-title">The Pillars of the Earth</div>
+          <div class="pick-author">by Ken Follett</div>
+          <div class="pick-tags"><span class="pick-tag" style="background:var(--fiction)">Fiction</span><span class="pick-tag" style="background:var(--green)">Historical</span><span class="pick-tag pages-tag">~973 pg</span></div>
+          <p class="pick-reason">You gave A Column of Fire (Kingsbridge #3) 4 stars — but you read book 3 without starting the series! The Pillars of the Earth is where it all begins, widely considered Follett's masterpiece. This epic about building a cathedral in 12th-century England is right in your wheelhouse.</p>
+          <div class="pick-badge">⭐ Predicted 5★ — by GitHub Copilot</div>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <div class="pick-number">5</div>
+        <div class="pick-body">
+          <div class="pick-title">Project Hail Mary</div>
+          <div class="pick-author">by Andy Weir</div>
+          <div class="pick-tags"><span class="pick-tag" style="background:var(--fiction)">Fiction</span><span class="pick-tag" style="background:var(--blue)">Sci-Fi</span><span class="pick-tag pages-tag">~476 pg</span></div>
+          <p class="pick-reason">You rated Hitchhiker's Guide 5 stars, love Asimov's sci-fi, gave Dune 4 stars, and enjoy popular science (Hawking, Feynman). Project Hail Mary blends hard science with warm humor and a genuinely touching friendship. Your science + humor sweet spot, perfectly.</p>
+          <div class="pick-badge">⭐ Predicted 5★ — by GitHub Copilot</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="picks-method">
+      <h3>🧠 How these were picked</h3>
+      <p>These recommendations were generated by analyzing your <strong>273 books</strong>, specifically your <strong>15 five-star</strong> and <strong>76 four-star</strong> ratings. Your strongest patterns: British humor (Wodehouse, Adams), sharp satire (Orwell, Heller, Tharoor), Indian history (Sanyal), science writing (Hawking), and literary historical fiction (Rushdie, Ishiguro). Each pick targets the overlap of multiple categories you love rather than just one.</p>
+    </div>
+  </div>
+
   <div class="category-section">
     <h2 class="section-title">All Books</h2>
     <div class="section-subtitle" id="allBooksCount"></div>
