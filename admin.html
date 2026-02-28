@@ -1161,13 +1161,17 @@
 
         function openEditModal(index) {
             const book = libraryData.books[index];
+            if (!book) {
+                showMessage('Error: Book not found at index ' + index, 'error');
+                return;
+            }
             document.getElementById('editIndex').value = index;
-            document.getElementById('editTitle').value = book.title;
-            document.getElementById('editAuthor').value = book.author;
+            document.getElementById('editTitle').value = book.title || '';
+            document.getElementById('editAuthor').value = book.author || '';
             document.getElementById('editRating').value = book.rating || '';
-            document.getElementById('editStatus').value = book.status;
+            document.getElementById('editStatus').value = book.status || 'read';
             document.getElementById('editCategory').value = book.category || '';
-            document.getElementById('editInCollection').value = book.in_collection;
+            document.getElementById('editInCollection').value = String(book.in_collection);
             document.getElementById('editPages').value = book.pages || '';
             document.getElementById('editReview').value = book.review || '';
             document.getElementById('editTracking').value = book.tracking_status || '';
