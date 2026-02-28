@@ -571,6 +571,7 @@
         <nav>
             <button class="btn-primary" onclick="showSection('browse')">📖 Browse & Edit</button>
             <button class="btn-primary" onclick="showSection('dashboard')">📊 Dashboard</button>
+            <button class="btn-primary" onclick="showSection('picks')">🌟 Picks For You</button>
             <button class="btn-primary" onclick="showSection('tracking')">📍 Track Books</button>
             <button class="btn-primary" onclick="showSection('add')">➕ Add Book</button>
             <button class="btn-success" onclick="downloadJSON()">⬇️ Download JSON</button>
@@ -632,6 +633,77 @@
             <div id="dashboard" class="section">
                 <h2>📊 Reading Dashboard</h2>
                 <div id="dashboardContent"></div>
+            </div>
+
+            <!-- Picks For You Section -->
+            <div id="picks" class="section">
+                <h2>🌟 Picks For You</h2>
+                <p style="color: #718096; margin-bottom: 10px; font-size: 1.05em;">Based on your reading history, ratings, and favorite genres — these are books we think you’d absolutely love.</p>
+                <p style="color: #a0aec0; margin-bottom: 25px; font-size: 0.9em; font-style: italic;">Predicted rating: ★★★★★ — curated by analyzing your 5-star reads, top categories, and the authors you keep coming back to.</p>
+
+                <div class="recommendation-card">
+                    <div class="book-title" style="font-size: 1.2em;">Three Men in a Boat</div>
+                    <div class="book-author">by Jerome K. Jerome</div>
+                    <div class="book-info" style="margin-top: 10px;">
+                        <strong>Category:</strong> Fiction / Humor<br>
+                        <strong>Pages:</strong> ~230
+                    </div>
+                    <p style="color: #4a5568; margin-top: 10px; line-height: 1.6;">You gave P.G. Wodehouse 15 high ratings and love Douglas Adams’ wit. Jerome K. Jerome is the godfather of British comic writing — absurd narration, bumbling characters, and laugh-out-loud moments on a boat trip down the Thames. If Wodehouse is your favorite author, this book might as well have been written for you.</p>
+                    <div class="prediction-badge">⭐ Predicted 5★ — by GitHub Copilot</div>
+                </div>
+
+                <div class="recommendation-card">
+                    <div class="book-title" style="font-size: 1.2em;">A Confederacy of Dunces</div>
+                    <div class="book-author">by John Kennedy Toole</div>
+                    <div class="book-info" style="margin-top: 10px;">
+                        <strong>Category:</strong> Fiction / Satire / Humor<br>
+                        <strong>Pages:</strong> ~394
+                    </div>
+                    <p style="color: #4a5568; margin-top: 10px; line-height: 1.6;">You rated Catch-22, Animal Farm, and The Great Indian Novel all 5 stars — you clearly love sharp satire with unforgettable characters. Ignatius J. Reilly is one of the most gloriously absurd protagonists in literature. Pulitzer Prize-winning, laugh-till-you-cry funny, and deeply clever. This is your kind of book.</p>
+                    <div class="prediction-badge">⭐ Predicted 5★ — by GitHub Copilot</div>
+                </div>
+
+                <div class="recommendation-card">
+                    <div class="book-title" style="font-size: 1.2em;">Small Gods</div>
+                    <div class="book-author">by Terry Pratchett</div>
+                    <div class="book-info" style="margin-top: 10px;">
+                        <strong>Category:</strong> Fiction / Fantasy / Satire<br>
+                        <strong>Pages:</strong> ~389
+                    </div>
+                    <p style="color: #4a5568; margin-top: 10px; line-height: 1.6;">You rated Good Omens (Pratchett + Gaiman) 4 stars and adore Hitchhiker’s Guide. Small Gods is Pratchett at his philosophical best — a standalone Discworld novel about religion, belief, and a god turned into a tortoise. It has the same DNA as Adams’ humor but with deeper thematic weight. If you loved Douglas Adams, Pratchett is the natural next obsession.</p>
+                    <div class="prediction-badge">⭐ Predicted 5★ — by GitHub Copilot</div>
+                </div>
+
+                <div class="recommendation-card">
+                    <div class="book-title" style="font-size: 1.2em;">The Pillars of the Earth</div>
+                    <div class="book-author">by Ken Follett</div>
+                    <div class="book-info" style="margin-top: 10px;">
+                        <strong>Category:</strong> Fiction / Historical<br>
+                        <strong>Pages:</strong> ~973
+                    </div>
+                    <p style="color: #4a5568; margin-top: 10px; line-height: 1.6;">You gave A Column of Fire (Kingsbridge #3) 4 stars — but you read book 3 without starting the series! The Pillars of the Earth is where it all begins, widely considered Follett’s masterpiece. You love historical fiction (In the Shadow of the Banyan, The Enchantress of Florence, A Gentleman in Moscow). This epic about building a cathedral in 12th-century England is right in your wheelhouse.</p>
+                    <div class="prediction-badge">⭐ Predicted 5★ — by GitHub Copilot</div>
+                </div>
+
+                <div class="recommendation-card">
+                    <div class="book-title" style="font-size: 1.2em;">Project Hail Mary</div>
+                    <div class="book-author">by Andy Weir</div>
+                    <div class="book-info" style="margin-top: 10px;">
+                        <strong>Category:</strong> Fiction / Science Fiction<br>
+                        <strong>Pages:</strong> ~476
+                    </div>
+                    <p style="color: #4a5568; margin-top: 10px; line-height: 1.6;">You rated Hitchhiker’s Guide 5 stars, love Asimov’s sci-fi, gave Dune 4 stars, and enjoy popular science (Hawking, Feynman). Project Hail Mary blends hard science with warm humor and a genuinely touching friendship. It’s the most fun sci-fi novel in years — smart, funny, and impossible to put down. Your science + humor sweet spot, perfectly.</p>
+                    <div class="prediction-badge">⭐ Predicted 5★ — by GitHub Copilot</div>
+                </div>
+
+                <div style="background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-top: 30px;">
+                    <h3 style="color: #2d3748; margin-bottom: 10px;">🧠 How these were picked</h3>
+                    <p style="color: #4a5568; line-height: 1.6; font-size: 0.95em;">
+                        These recommendations were generated by analyzing your <strong>273 books</strong>, specifically your <strong>15 five-star</strong> and <strong>76 four-star</strong> ratings. 
+                        Your strongest patterns: British humor (Wodehouse, Adams), sharp satire (Orwell, Heller, Tharoor), Indian history (Sanyal), science writing (Hawking), and literary historical fiction (Rushdie, Ishiguro). 
+                        Each pick targets the overlap of multiple categories you love rather than just one.
+                    </p>
+                </div>
             </div>
 
             <!-- Tracking Section -->
