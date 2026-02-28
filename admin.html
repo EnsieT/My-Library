@@ -1456,10 +1456,11 @@
 
         function promptGitHubToken() {
             const modal = document.createElement('div');
+            modal.id = 'githubAuthModal';
             modal.className = 'modal active';
             modal.innerHTML = `
                 <div class="modal-content">
-                    <span class="close-modal" onclick="this.closest('.modal').remove()">&times;</span>
+                    <span class="close-modal" onclick="document.getElementById('githubAuthModal').remove()">&times;</span>
                     <div class="modal-header">GitHub Authentication</div>
                     <p style="margin-bottom: 15px; color: #4a5568;">
                         To save changes to GitHub, you need a Personal Access Token.
@@ -1477,7 +1478,7 @@
                         <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx...">
                     </div>
                     <button class="btn-success" onclick="saveToken()" style="width: 100%; margin-bottom: 10px;">Save Token</button>
-                    <button class="btn-secondary" onclick="this.closest('.modal').remove()" style="width: 100%;">Cancel</button>
+                    <button class="btn-secondary" onclick="document.getElementById('githubAuthModal').remove()" style="width: 100%;">Cancel</button>
                 </div>
             `;
             document.body.appendChild(modal);
@@ -1492,7 +1493,7 @@
             
             githubToken = token;
             sessionStorage.setItem('githubToken', token);
-            document.querySelector('.modal').remove();
+            document.getElementById('githubAuthModal').remove();
             showMessage('✓ GitHub token saved (browser memory only)', 'success');
             initGitHub();
         }
