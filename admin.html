@@ -379,6 +379,165 @@
             color: #718096;
         }
 
+        .filter-panel {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-header {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-header:hover {
+            color: #667eea;
+        }
+
+        .filter-content {
+            display: none;
+        }
+
+        .filter-content.expanded {
+            display: block;
+        }
+
+        .filter-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-checkbox:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .filter-checkbox input {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .filter-button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .filter-button-group button {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 0.9em;
+        }
+
+        .rating-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .favorite-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffd700;
+            color: #744210;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .dashboard-card h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .dashboard-stat {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f7fafc;
+            border-radius: 5px;
+        }
+
+        .dashboard-stat-label {
+            font-size: 0.9em;
+            color: #718096;
+            margin-bottom: 5px;
+        }
+
+        .dashboard-stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .recommendation-card {
+            border: 2px solid #ffd700;
+            background: #fffbf0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .recommendation-card .book-title {
+            color: #744210;
+        }
+
+        .prediction-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #744210;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .book-card {
+            position: relative;
+        }
+
         @media (max-width: 768px) {
             .books-grid {
                 grid-template-columns: 1fr;
@@ -411,6 +570,7 @@
 
         <nav>
             <button class="btn-primary" onclick="showSection('browse')">📖 Browse & Edit</button>
+            <button class="btn-primary" onclick="showSection('dashboard')">📊 Dashboard</button>
             <button class="btn-primary" onclick="showSection('tracking')">📍 Track Books</button>
             <button class="btn-primary" onclick="showSection('add')">➕ Add Book</button>
             <button class="btn-success" onclick="downloadJSON()">⬇️ Download JSON</button>
@@ -430,10 +590,48 @@
                     <button class="btn-primary" onclick="filterBooks()">🔍 Search</button>
                 </div>
 
+                <!-- Filter Panel -->
+                <div class="filter-panel">
+                    <div class="filter-header" onclick="toggleFilterPanel()">
+                        <span>🔽 Filters</span>
+                        <span id="filterToggleIcon" style="font-size: 0.8em;">▼</span>
+                    </div>
+                    <div class="filter-content expanded" id="filterContent">
+                        <div style="margin-bottom: 15px;">
+                            <div style="font-weight: 500; margin-bottom: 10px; color: #2d3748;">📚 Collection</div>
+                            <div class="filter-checkbox">
+                                <input type="checkbox" id="filterInCollection" onchange="filterBooks()">
+                                <label for="filterInCollection" style="cursor: pointer; margin: 0;">Only show books in my collection</label>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <div style="font-weight: 500; margin-bottom: 10px; color: #2d3748;">⭐ Rating</div>
+                            <div class="rating-filters" id="ratingFilters"></div>
+                        </div>
+
+                        <div>
+                            <div style="font-weight: 500; margin-bottom: 10px; color: #2d3748;">🏷️ Categories</div>
+                            <div class="filter-options" id="categoryFilters"></div>
+                        </div>
+
+                        <div class="filter-button-group">
+                            <button class="btn-secondary" onclick="clearFilters()">↻ Clear All</button>
+                            <button class="btn-primary" onclick="filterBooks()">✓ Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="browseStats" class="stats"></div>
 
                 <div id="booksGrid" class="books-grid"></div>
                 <div id="noResults" class="no-results" style="display:none;">No books found</div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section">
+                <h2>📊 Reading Dashboard</h2>
+                <div id="dashboardContent"></div>
             </div>
 
             <!-- Tracking Section -->
@@ -620,6 +818,8 @@
         let currentEditIndex = -1;
         let selectedTrackingBook = -1;
         let selectedTrackingType = null;
+        let selectedCategories = new Set();
+        let selectedRatings = new Set();
 
         // Initialize
         window.onload = function() {
@@ -634,11 +834,70 @@
                     filteredBooks = data.books;
                     renderBrowseBooks();
                     updateStats();
+                    buildCategoryFilters();
+                    buildRatingFilters();
                     showMessage('Library loaded successfully', 'success');
                 })
                 .catch(error => {
                     showMessage('Error loading library: ' + error.message, 'error');
                 });
+        }
+
+        function buildCategoryFilters() {
+            const categories = new Set();
+            libraryData.books.forEach(book => {
+                if (book.classifications && book.classifications.length > 0) {
+                    book.classifications.forEach(classification => {
+                        if (classification.main) {
+                            categories.add(classification.main);
+                        }
+                        if (classification.subs && Array.isArray(classification.subs)) {
+                            classification.subs.forEach(sub => {
+                                if (sub) categories.add(sub);
+                            });
+                        }
+                    });
+                }
+            });
+
+            const categoriesArray = Array.from(categories).sort();
+            const filterContainer = document.getElementById('categoryFilters');
+            filterContainer.innerHTML = categoriesArray.map(category => `
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="cat_${category}" value="${category}" onchange="filterBooks()">
+                    <label for="cat_${category}" style="cursor: pointer; margin: 0;">${escapeHtml(category)}</label>
+                </div>
+            `).join('');
+        }
+
+        function buildRatingFilters() {
+            const ratingContainer = document.getElementById('ratingFilters');
+            const ratings = ['5 ⭐', '4+ ⭐', '3+ ⭐', 'Unrated'];
+            ratingContainer.innerHTML = ratings.map(rating => `
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="rat_${rating}" value="${rating}" onchange="filterBooks()">
+                    <label for="rat_${rating}" style="cursor: pointer; margin: 0;">${rating}</label>
+                </div>
+            `).join('');
+        }
+
+        function toggleFilterPanel() {
+            const content = document.getElementById('filterContent');
+            const icon = document.getElementById('filterToggleIcon');
+            content.classList.toggle('expanded');
+            icon.textContent = content.classList.contains('expanded') ? '▼' : '▶';
+        }
+
+        function clearFilters() {
+            document.getElementById('filterInCollection').checked = false;
+            document.querySelectorAll('.filter-checkbox input[type="checkbox"][id^="cat_"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            document.querySelectorAll('.filter-checkbox input[type="checkbox"][id^="rat_"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            document.getElementById('searchInput').value = '';
+            filterBooks();
         }
 
         function loadFromFile() {
@@ -712,9 +971,12 @@
                 const statusClass = book.status === 'read' ? 'status-read' : 'status-to-read';
                 const trackingHtml = book.tracking_status ? 
                     `<div class="tracking-status">📍 ${book.tracking_status}</div>` : '';
+                const favoriteHtml = (book.rating >= 4) ? 
+                    `<div class="favorite-badge">⭐ Favorite</div>` : '';
 
                 return `
                     <div class="book-card">
+                        ${favoriteHtml}
                         <div class="book-title">${escapeHtml(book.title)}</div>
                         <div class="book-author">by ${escapeHtml(book.author)}</div>
                         <div class="book-status ${statusClass}">${book.status}</div>
@@ -735,10 +997,64 @@
 
         function filterBooks() {
             const search = document.getElementById('searchInput').value.toLowerCase();
-            filteredBooks = libraryData.books.filter(book => 
-                book.title.toLowerCase().includes(search) || 
-                book.author.toLowerCase().includes(search)
-            );
+            const inCollectionOnly = document.getElementById('filterInCollection').checked;
+            
+            // Get selected categories
+            selectedCategories.clear();
+            document.querySelectorAll('.filter-checkbox input[type="checkbox"][id^="cat_"]:checked').forEach(checkbox => {
+                selectedCategories.add(checkbox.value);
+            });
+
+            // Get selected ratings
+            selectedRatings.clear();
+            document.querySelectorAll('.filter-checkbox input[type="checkbox"][id^="rat_"]:checked').forEach(checkbox => {
+                selectedRatings.add(checkbox.value);
+            });
+
+            filteredBooks = libraryData.books.filter(book => {
+                // Text search filter
+                const matchesSearch = search === '' || 
+                    book.title.toLowerCase().includes(search) || 
+                    book.author.toLowerCase().includes(search);
+
+                // In collection filter
+                const matchesCollection = !inCollectionOnly || book.in_collection;
+
+                // Category filter
+                let matchesCategory = true;
+                if (selectedCategories.size > 0) {
+                    matchesCategory = false;
+                    if (book.classifications && book.classifications.length > 0) {
+                        for (const classification of book.classifications) {
+                            if (selectedCategories.has(classification.main)) {
+                                matchesCategory = true;
+                                break;
+                            }
+                            if (classification.subs && Array.isArray(classification.subs)) {
+                                for (const sub of classification.subs) {
+                                    if (selectedCategories.has(sub)) {
+                                        matchesCategory = true;
+                                        break;
+                                    }
+                                }
+                                if (matchesCategory) break;
+                            }
+                        }
+                    }
+                }
+
+                // Rating filter
+                let matchesRating = true;
+                if (selectedRatings.size > 0) {
+                    matchesRating = false;
+                    if (selectedRatings.has('5 ⭐') && book.rating === 5) matchesRating = true;
+                    if (selectedRatings.has('4+ ⭐') && book.rating >= 4) matchesRating = true;
+                    if (selectedRatings.has('3+ ⭐') && book.rating >= 3) matchesRating = true;
+                    if (selectedRatings.has('Unrated') && !book.rating) matchesRating = true;
+                }
+
+                return matchesSearch && matchesCollection && matchesCategory && matchesRating;
+            });
             renderBrowseBooks();
         }
 
@@ -940,7 +1256,129 @@
                 document.getElementById('searchInput').value = '';
                 filteredBooks = libraryData.books;
                 renderBrowseBooks();
+            } else if (sectionId === 'dashboard') {
+                renderDashboard();
             }
+        }
+
+        function renderDashboard() {
+            const content = document.getElementById('dashboardContent');
+            
+            // Calculate statistics
+            const allBooks = libraryData.books;
+            const readBooks = allBooks.filter(b => b.status === 'read');
+            const unreadInCollection = allBooks.filter(b => b.in_collection && b.status === 'to-read');
+            const ownedAndLoved = allBooks.filter(b => b.in_collection && b.rating >= 4);
+            const ratedBooks = allBooks.filter(b => b.rating);
+            const avgRating = ratedBooks.length > 0 ? (ratedBooks.reduce((sum, b) => sum + b.rating, 0) / ratedBooks.length).toFixed(2) : 0;
+            const totalPages = allBooks.filter(b => b.pages).reduce((sum, b) => sum + parseInt(b.pages), 0);
+            const booksWithPages = allBooks.filter(b => b.pages).length;
+            const avgPages = booksWithPages > 0 ? Math.round(totalPages / booksWithPages) : 0;
+            
+            // Estimate reading speed (books read per month - rough estimate)
+            const booksPerMonth = readBooks.length > 0 ? (readBooks.length / 12).toFixed(1) : 0;
+            
+            // Get top categories from 4-5 star books
+            const topCats = {};
+            ownedAndLoved.forEach(book => {
+                if (book.classifications && book.classifications.length > 0) {
+                    book.classifications.forEach(c => {
+                        topCats[c.main] = (topCats[c.main] || 0) + 1;
+                    });
+                }
+            });
+            const topCategory = Object.keys(topCats).length > 0 ? Object.keys(topCats).reduce((a, b) => topCats[a] > topCats[b] ? a : b) : 'N/A';
+            
+            const html = `
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>📈 Reading Statistics</h3>
+                        <div class="dashboard-stat">
+                            <div class="dashboard-stat-label">Total Books Read</div>
+                            <div class="dashboard-stat-value">${readBooks.length}</div>
+                        </div>
+                        <div class="dashboard-stat">
+                            <div class="dashboard-stat-label">Books/Month Estimate</div>
+                            <div class="dashboard-stat-value">${booksPerMonth}</div>
+                        </div>
+                        <div class="dashboard-stat">
+                            <div class="dashboard-stat-label">Avg Pages/Book</div>
+                            <div class="dashboard-stat-value">${avgPages}</div>
+                        </div>
+                        <div class="dashboard-stat">
+                            <div class="dashboard-stat-label">Avg Rating</div>
+                            <div class="dashboard-stat-value">${avgRating} ⭐</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📚 Collection Insights</h3>
+                        <div class="dashboard-stat">
+                            <div class="dashboard-stat-label">Books in Collection</div>
+                            <div class="dashboard-stat-value">${allBooks.filter(b => b.in_collection).length}</div>
+                        </div>
+                        <div class="dashboard-stat">
+                            <div class="dashboard-stat-label">Reading Backlog</div>
+                            <div class="dashboard-stat-value">${unreadInCollection.length}</div>
+                        </div>
+                        <div class="dashboard-stat">
+                            <div class="dashboard-stat-label">Your Favorites</div>
+                            <div class="dashboard-stat-value">${ownedAndLoved.length}</div>
+                        </div>
+                        <div class="dashboard-stat">
+                            <div class="dashboard-stat-label">Top Category</div>
+                            <div class="dashboard-stat-value" style="font-size: 1.2em;">${topCategory}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px; color: #2d3748;">📖 Your Reading Backlog</h3>
+                <p style="color: #718096; margin-bottom: 15px;">Books you own but haven't read yet (${unreadInCollection.length} books)</p>
+                <div class="books-grid">
+                    ${unreadInCollection.slice(0, 6).map(book => {
+                        const idx = libraryData.books.indexOf(book);
+                        return `
+                            <div class="book-card">
+                                <div class="book-title">${escapeHtml(book.title)}</div>
+                                <div class="book-author">by ${escapeHtml(book.author)}</div>
+                                <div class="book-info">
+                                    <strong>Category:</strong> ${book.category || 'N/A'}<br>
+                                    <strong>Pages:</strong> ${book.pages || 'N/A'}
+                                </div>
+                                <div class="book-actions">
+                                    <button class="btn-primary" onclick="editBook(${idx})">✏️ Edit</button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+                ${unreadInCollection.length > 6 ? `<p style="text-align: center; color: #667eea; margin-top: 15px;">... and ${unreadInCollection.length - 6} more</p>` : ''}
+
+                <h3 style="margin-top: 30px; color: #2d3748;">💎 Your Favorite Reads</h3>
+                <p style="color: #718096; margin-bottom: 15px;">Books you rated 4-5 stars and own (${ownedAndLoved.length} books)</p>
+                <div class="books-grid">
+                    ${ownedAndLoved.slice(0, 6).map(book => {
+                        const idx = libraryData.books.indexOf(book);
+                        return `
+                            <div class="book-card">
+                                <div class="favorite-badge">⭐ ${book.rating}/5</div>
+                                <div class="book-title">${escapeHtml(book.title)}</div>
+                                <div class="book-author">by ${escapeHtml(book.author)}</div>
+                                <div class="book-info">
+                                    <strong>Category:</strong> ${book.category || 'N/A'}<br>
+                                    <strong>Pages:</strong> ${book.pages || 'N/A'}
+                                </div>
+                                <div class="book-actions">
+                                    <button class="btn-primary" onclick="editBook(${idx})">✏️ Edit</button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+                ${ownedAndLoved.length > 6 ? `<p style="text-align: center; color: #667eea; margin-top: 15px;">... and ${ownedAndLoved.length - 6} more</p>` : ''}
+            `;
+            
+            content.innerHTML = html;
         }
 
         function downloadJSON() {
