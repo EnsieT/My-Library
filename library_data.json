@@ -6278,8 +6278,8 @@
     {
       "title": "Miguel Street",
       "author": "V.S. Naipaul",
-      "rating": 0,
-      "status": "currently-reading",
+      "rating": 2,
+      "status": "read",
       "category": "Fiction/Literary Fiction",
       "classifications": [
         {
@@ -6293,10 +6293,33 @@
       "in_collection": true,
       "condition": "Good",
       "review": null,
-      "date_read": "",
+      "date_read": "2026/03/02",
       "date_added": "2026/02/25",
       "pages": "176",
       "avg_rating": "3.95"
+    },
+    {
+      "title": "Problem at Pollensa Bay and Other Stories",
+      "author": "Agatha Christie",
+      "rating": 0,
+      "status": "currently-reading",
+      "category": "Fiction/Mystery",
+      "classifications": [
+        {
+          "main": "Fiction",
+          "subs": [
+            "Fiction",
+            "Mystery"
+          ]
+        }
+      ],
+      "in_collection": true,
+      "condition": "Good",
+      "review": null,
+      "date_read": "",
+      "date_added": "2026/03/02",
+      "pages": "272",
+      "avg_rating": "3.67"
     }
   ]
 }
