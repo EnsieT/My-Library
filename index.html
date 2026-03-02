@@ -245,59 +245,76 @@ a:hover { text-decoration: underline; }
 .bar-fill { height: 100%; border-radius: 3px; transition: width .6s ease; }
 .bar-count { min-width: 28px; text-align: right; color: var(--text2); font-size: .8rem; }
 
-/* ===== QUOTES SECTION ===== */
-.quotes-panel {
-  max-width: 1400px;
-  margin: 32px auto 24px;
-  padding: 0 24px;
+/* ===== QUOTES MODAL ===== */
+.quotes-modal-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
-.quotes-title {
+.quotes-modal-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+.quotes-modal-title {
   font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--text);
 }
-.quotes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+.quotes-modal-author {
+  color: var(--text2);
+  font-size: .9rem;
+  margin-top: 2px;
+}
+.quotes-modal-body {
+  padding: 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.quotes-list {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 }
-.quote-card {
-  background: var(--surface);
+.quote-item {
+  background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 24px;
+  padding: 20px 20px 20px 28px;
   position: relative;
-  transition: border-color .2s, transform .2s;
+  transition: border-color .2s;
 }
-.quote-card:hover {
+.quote-item:hover {
   border-color: var(--accent);
-  transform: translateY(-2px);
 }
-.quote-card::before {
+.quote-item::before {
   content: '\201C';
   position: absolute;
-  top: 10px; left: 16px;
-  font-size: 3rem;
-  color: var(--accent);
-  opacity: .25;
+  top: 8px; left: 10px;
+  font-size: 2rem;
+  color: var(--gold);
+  opacity: .4;
   font-family: Georgia, serif;
   line-height: 1;
 }
-.quote-text {
-  font-size: .95rem;
+.quote-item-text {
+  font-size: .92rem;
   color: var(--text);
   line-height: 1.7;
   font-style: italic;
-  margin-bottom: 12px;
-  padding-left: 4px;
 }
-.quote-source {
-  font-size: .8rem;
-  color: var(--text2);
+@media (max-width: 768px) {
+  .quotes-modal-header { padding: 16px; }
+  .quotes-modal-body { padding: 16px; max-height: 65vh; }
+  .quotes-modal-title { font-size: 1.1rem; }
+  .quote-item { padding: 14px 14px 14px 22px; }
+  .quote-item-text { font-size: .85rem; }
 }
-.quote-source strong {
-  color: var(--accent2);
+@media (max-width: 480px) {
+  .quotes-modal-header { padding: 12px; gap: 10px; }
+  .quotes-modal-body { padding: 12px; }
+  .quotes-modal-title { font-size: 1rem; }
+  .quotes-modal-icon { font-size: 1.6rem; }
 }
 
 /* ===== PICKS FOR YOU ===== */
@@ -555,6 +572,8 @@ a:hover { text-decoration: underline; }
 .badge-lent { background: rgba(251,113,133,.12); color: var(--rose); border: 1px solid rgba(251,113,133,.2); }
 .badge-lost { background: rgba(229,51,51,.12); color: #ef4444; border: 1px solid rgba(229,51,51,.2); }
 .badge-review { background: rgba(124,109,240,.12); color: var(--accent2); border: 1px solid rgba(124,109,240,.2); }
+.badge-quotes { background: rgba(245,197,66,.12); color: var(--gold); border: 1px solid rgba(245,197,66,.25); cursor: pointer; transition: all .2s; }
+.badge-quotes:hover { background: rgba(245,197,66,.25); border-color: var(--gold); }
 .badge-reading { background: rgba(74,222,128,.2); color: var(--green); border: 1px solid rgba(74,222,128,.3); }
 .badge-toread { background: rgba(251,146,60,.12); color: var(--orange); border: 1px solid rgba(251,146,60,.2); }
 
@@ -1069,33 +1088,6 @@ a:hover { text-decoration: underline; }
     <div class="insights-grid" id="insightsGrid"></div>
   </div>
 
-  <!-- Quotes Section -->
-  <div class="quotes-panel">
-    <h2 class="quotes-title">📜 Words from the Shelf</h2>
-    <div class="quotes-grid">
-      <div class="quote-card">
-        <p class="quote-text">"The Answer to the Great Question... Of Life, the Universe and Everything... Is... Forty-two."</p>
-        <div class="quote-source"><strong>The Hitchhiker's Guide to the Galaxy</strong> — Douglas Adams</div>
-      </div>
-      <div class="quote-card">
-        <p class="quote-text">"Those who have a 'why' to live, can bear with almost any 'how'."</p>
-        <div class="quote-source"><strong>Man's Search for Meaning</strong> — Viktor E. Frankl</div>
-      </div>
-      <div class="quote-card">
-        <p class="quote-text">"All animals are equal, but some animals are more equal than others."</p>
-        <div class="quote-source"><strong>Animal Farm</strong> — George Orwell</div>
-      </div>
-      <div class="quote-card">
-        <p class="quote-text">"You never really understand a person until you consider things from his point of view... Until you climb inside of his skin and walk around in it."</p>
-        <div class="quote-source"><strong>To Kill a Mockingbird</strong> — Harper Lee</div>
-      </div>
-      <div class="quote-card">
-        <p class="quote-text">"He was given to understand that there was insanity in the family, but that he should look into it."</p>
-        <div class="quote-source"><strong>Summer Lightning</strong> — P.G. Wodehouse</div>
-      </div>
-    </div>
-  </div>
-
   <!-- Picks For You Section -->
   <div style="max-width:1400px;margin:0 auto;padding:0 24px;">
     <button class="picks-toggle-btn" id="picksToggleBtn" onclick="togglePicks()">
@@ -1227,6 +1219,11 @@ a:hover { text-decoration: underline; }
   <div class="modal" style="position:relative" id="modalContent"></div>
 </div>
 
+<!-- ===== QUOTES MODAL ===== -->
+<div class="modal-overlay" id="quotesOverlay">
+  <div class="modal" style="position:relative" id="quotesModalContent"></div>
+</div>
+
 <!-- ===== FOOTER ===== -->
 <div class="footer" id="footer"></div>
 
@@ -1248,6 +1245,716 @@ let RATING_FILTER = '';
 let SORT = 'title';
 let REVIEW_RATING_FILTER = '';  // rating filter specific to reviews tab
 let REVIEW_SORT = 'date-desc';  // sort for reviews tab
+
+/* ===== BOOK QUOTES DATA ===== */
+const BOOK_QUOTES = {
+  // ===== 5-STAR BOOKS =====
+  "The Hitchhiker's Guide to the Galaxy": [
+    "The Answer to the Great Question... Of Life, the Universe and Everything... Is... Forty-two.",
+    "Don't Panic.",
+    "Time is an illusion. Lunchtime doubly so.",
+    "I'd far rather be happy than right any day.",
+    "For a moment, nothing happened. Then, after a second or so, nothing continued to happen.",
+    "A common mistake that people make when trying to design something completely foolproof is to underestimate the ingenuity of complete fools."
+  ],
+  "Land of the Seven Rivers": [
+    "India's geography has been as much a shaper of its history as its people.",
+    "The Indian Ocean was essentially an Indian lake for most of recorded history.",
+    "The rivers of India are not just waterways, they are the veins of a civilization.",
+    "Geography does not merely provide the stage; it writes the script.",
+    "India's coastline has been as important to its history as its great river systems."
+  ],
+  "Man's Search for Meaning": [
+    "Those who have a 'why' to live, can bear with almost any 'how'.",
+    "Everything can be taken from a man but one thing: the last of the human freedoms\u2014to choose one's attitude in any given set of circumstances.",
+    "When we are no longer able to change a situation, we are challenged to change ourselves.",
+    "Between stimulus and response there is a space. In that space is our freedom and power to choose our response.",
+    "An abnormal reaction to an abnormal situation is normal behavior."
+  ],
+  "Summer Lightning": [
+    "He was given to understand that there was insanity in the family, but that he should look into it.",
+    "It was one of those situations where you feel that no matter what you do, you are bound to be in the wrong.",
+    "The Efficient Baxter lost his grip on the universe.",
+    "Beach the butler sailed majestically through the proceedings like a galleon in full sail.",
+    "Love makes the world go round? Not at all. Whiskey makes it go round twice as fast."
+  ],
+  "In the Shadow of the Banyan": [
+    "In the shadow of the banyan, we learned what it meant to survive.",
+    "Stories are our way of holding on to what we've lost.",
+    "Even the strongest trees can be uprooted, but their seeds scatter and take hold elsewhere.",
+    "In the language of grief, there are no words, only silence.",
+    "Revolution devours its own children."
+  ],
+  "Animal Farm": [
+    "All animals are equal, but some animals are more equal than others.",
+    "The creatures outside looked from pig to man, and from man to pig, and from pig to man again; but already it was impossible to say which was which.",
+    "Four legs good, two legs bad.",
+    "Man is the only creature that consumes without producing.",
+    "Several of them would have protested if they could have found the right arguments."
+  ],
+  "The Enchantress of Florence": [
+    "A beautiful woman with a bad temper was the most dangerous creature on earth.",
+    "In the great palace of stories, every room leads to another.",
+    "The enchantress exists in the space between history and dream.",
+    "We are the stories we tell ourselves.",
+    "Power and beauty are the twin rulers of the world."
+  ],
+  "The Great Indian Novel": [
+    "Every Indian is a walking epic.",
+    "History has its own cunning.",
+    "Democracy in India is like the great banyan tree; it shelters many and strangles a few.",
+    "The tragedy of India is that it has always been easier to destroy than to build.",
+    "In India, you don't cast your vote, you vote your caste."
+  ],
+  "A Brief History of Time": [
+    "Even if there is only one possible unified theory, it is just a set of rules and equations. What is it that breathes fire into the equations and makes a universe for them to describe?",
+    "We are just an advanced breed of monkeys on a minor planet of a very average star. But we can understand the Universe. That makes us something very special.",
+    "The whole history of science has been the gradual realization that events do not happen in an arbitrary manner.",
+    "The universe doesn't allow perfection.",
+    "Intelligence is the ability to adapt to change."
+  ],
+  "To Kill a Mockingbird": [
+    "You never really understand a person until you consider things from his point of view... Until you climb inside of his skin and walk around in it.",
+    "Shoot all the bluejays you want, if you can hit 'em, but remember it's a sin to kill a mockingbird.",
+    "People generally see what they look for, and hear what they listen for.",
+    "The one thing that doesn't abide by majority rule is a person's conscience.",
+    "Until I feared I would lose it, I never loved to read. One does not love breathing."
+  ],
+  "The Universe in a Nutshell": [
+    "The past, like the future, is indefinite and exists only as a spectrum of possibilities.",
+    "We are all now connected by the Internet, like neurons in a giant brain.",
+    "Quiet people have the loudest minds.",
+    "Not only does God play dice, but He sometimes throws them where they cannot be seen.",
+    "The universe is not indifferent to our existence\u2014it depends on it."
+  ],
+  "Catch-22": [
+    "He was going to live forever, or die in the attempt.",
+    "Just because you're paranoid doesn't mean they aren't after you.",
+    "Some men are born mediocre, some men achieve mediocrity, and some men have mediocrity thrust upon them.",
+    "The enemy is anybody who's going to get you killed, no matter which side he is on.",
+    "Insanity is contagious."
+  ],
+  "The Restaurant at the End of the Universe": [
+    "The story so far: In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move.",
+    "There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will instantly disappear and be replaced by something even more bizarre and inexplicable.",
+    "The major problem\u2014one of the many major problems\u2014with governing people is that of whom you get to do it.",
+    "It is known that there are an infinite number of worlds, simply because there is an infinite amount of space for them to be in.",
+    "The best way to get a drink out of a Vogon is to stick your finger down his throat."
+  ],
+  "The Ultimate Hitchhiker's Guide to the Galaxy": [
+    "Space is big. You just won't believe how vastly, hugely, mind-bogglingly big it is.",
+    "Would it save you a lot of time if I just gave up and went mad now?",
+    "Anyone who is capable of getting themselves made President should on no account be allowed to do the job.",
+    "He felt that his whole life was some kind of dream and he sometimes wondered whose it was and whether they were enjoying it.",
+    "Human beings, who are almost unique in having the ability to learn from the experience of others, are also remarkable for their apparent disinclination to do so."
+  ],
+  "Into the Silent Land": [
+    "We are all just a bundle of neurons spinning tales of selfhood.",
+    "The brain is wider than the sky.",
+    "Consciousness is the one thing that cannot be an illusion.",
+    "Who we are is a story told by our brains.",
+    "The self is a beautiful fiction."
+  ],
+  // ===== 4-STAR BOOKS =====
+  "Uncle Fred in the Springtime": [
+    "He could not have been more surprised if he had found an alligator in his bath.",
+    "Uncle Fred always operated on the principle that everything would come out all right in the end.",
+    "The English country house is a breeding ground for eccentrics.",
+    "There is something about the atmosphere of Blandings Castle that breeds optimism.",
+    "Spring, it seemed, had come to Dovetail Hammer with its usual lack of reserve."
+  ],
+  "The Remains of the Day": [
+    "Indeed \u2014 why should I not admit it? \u2014 at that moment, my heart was breaking.",
+    "What is the point of worrying oneself too much about what one could or could not have done to control the course one's life took?",
+    "Perhaps it is indeed time I began to look at this whole matter of bantering more enthusiastically.",
+    "The evening's the best part of the day. You've done your day's work. Now you can lie back and enjoy it.",
+    "A butler of any quality must be seen to inhabit his role, utterly and fully."
+  ],
+  "A Damsel in Distress": [
+    "It is never difficult to distinguish between a Scotsman with a grievance and a ray of sunshine.",
+    "Love comes to all of us at unexpected moments and in unexpected ways.",
+    "English aristocracy was something like old wine\u2014the older it got, the more peculiar it became.",
+    "There is something about a pretty girl that short-circuits the brain of any man.",
+    "Nothing concentrates the mind like the discovery that one's castle is under siege."
+  ],
+  "Full Moon": [
+    "There is only one cure for grey hair. It was invented by a Frenchman. It is called the guillotine.",
+    "A man who has been shot by Cupid's arrow does not brood silently in a corner.",
+    "Blandings Castle slumbered in the afternoon sun like some old dowager who has had a good lunch.",
+    "The man with a problem is the man who is alive.",
+    "Love and the desire to do something spectacular go hand in hand."
+  ],
+  "The Almanack of Naval Ravikant": [
+    "Seek wealth, not money or status. Wealth is having assets that earn while you sleep.",
+    "Learn to sell. Learn to build. If you can do both, you will be unstoppable.",
+    "A calm mind, a fit body, and a house full of love. These things cannot be bought. They must be earned.",
+    "The secret to happiness is just low expectations.",
+    "Play long-term games with long-term people."
+  ],
+  "Galahad at Blandings": [
+    "It is never easy to be calm when one's pig is at stake.",
+    "Galahad had the kind of past that made strong men shudder.",
+    "The family, as usual, was driving everybody to drink.",
+    "When Fate hurls the brickbat, it seldom misses.",
+    "No butler worth his salt would allow his composure to be shaken by anything short of an earthquake."
+  ],
+  "Tell-Tale Brain": [
+    "Your own body is a phantom, one that your brain has temporarily constructed purely for convenience.",
+    "We are not angels, we are merely sophisticated apes. Yet we feel like angels trapped inside the bodies of beasts.",
+    "A few cubic inches of the human brain harbor more connections than there are stars in the Milky Way.",
+    "The boundary between neurology and psychiatry is becoming increasingly blurred.",
+    "The neurons in your brain are wired in a way that mirrors the world around you."
+  ],
+  "A Pelican at Blandings": [
+    "The best way to deal with aunts is to ignore them on principle.",
+    "Love, like water, finds its own level, and frequently the wrong one.",
+    "A Pelican is not the sort of bird you expect to find at a place like Blandings.",
+    "One cannot go through life without encountering the occasional catastrophe.",
+    "It was the kind of morning that makes you want to throw open the window and shout 'Hallo, world!'"
+  ],
+  "The Case of the Howling Dog": [
+    "A lawyer's job is to find the truth the facts are trying to hide.",
+    "The law is not a game of technicalities\u2014it's a search for truth.",
+    "When a dog howls at night, someone is about to die. Or so they say.",
+    "The more impossible a case looks, the more interesting it becomes.",
+    "Evidence doesn't lie, but it doesn't always tell the whole truth either."
+  ],
+  "Revolutionaries": [
+    "The history of India's freedom struggle is far more complex than a single narrative can capture.",
+    "The revolutionaries chose the bullet when others chose the ballot.",
+    "Courage is not the absence of fear, but the triumph over it\u2014this the revolutionaries knew well.",
+    "History is written by the victors, but the stories of the forgotten must also be told.",
+    "The cost of freedom was paid not just in prisons but on gallows."
+  ],
+  "Child 44": [
+    "There is no murder in paradise.",
+    "In a State that proclaimed itself perfect, the very existence of crime was an embarrassment.",
+    "Trust no one. Suspect everyone.",
+    "The truth was the most dangerous thing in the Soviet Union.",
+    "Love in a totalitarian state is the ultimate act of rebellion."
+  ],
+  "The Bhagavad Gita": [
+    "You have the right to work, but never to the fruit of the work.",
+    "Change is the law of the universe. You can be a millionaire or a pauper in an instant.",
+    "The soul is neither born, and nor does it die.",
+    "When meditation is mastered, the mind is unwavering like the flame of a lamp in a windless place.",
+    "Set thy heart upon thy work but never on its reward."
+  ],
+  "Very Good, Jeeves!": [
+    "There are moments, Jeeves, when one asks oneself, 'Do trousers matter?'",
+    "It is no use telling me that there are bad aunts and good aunts. At the core, they are all alike.",
+    "Jeeves coughed one of his soft, low, gentle coughs like a sheep with a blade of grass stuck in its throat.",
+    "What ho! What ho! What ho!",
+    "The right tie can make or break a man, especially in the eyes of Jeeves."
+  ],
+  "Hot Water": [
+    "Love is not a brisk walk across a level plain; it is more like a climb up a Swiss Alp.",
+    "A good heart is worth all the heads in the world.",
+    "In this world, it is not the clever or the strong who survive, but those who know when to run.",
+    "Money may not buy happiness, but it certainly helps you look for it in more interesting places.",
+    "The trouble with the French Riviera is that there's too much sun and too many women."
+  ],
+  "Siddhartha": [
+    "Wisdom cannot be imparted. Wisdom that a wise man attempts to impart always sounds like foolishness.",
+    "The river is everywhere.",
+    "Words do not express thoughts very well. They always become a little different immediately after they are expressed.",
+    "I can think. I can wait. I can fast.",
+    "Knowledge can be communicated, but not wisdom."
+  ],
+  "India in the Age of Ideas": [
+    "India is not merely a geographical expression but an idea that has persisted through millennia.",
+    "The story of Indian civilization is one of continuous adaptation and reinvention.",
+    "In the marketplace of ideas, India has always been both buyer and seller.",
+    "Economic reform is not a destination but a journey that must constantly evolve.",
+    "The subcontinent's greatest export has always been ideas."
+  ],
+  "The Secret Garden": [
+    "If you look the right way, you can see that the whole world is a garden.",
+    "Where you tend a rose, my lad, a thistle cannot grow.",
+    "Two worst things as can happen to a child is never to have his own way\u2014or always to have it.",
+    "Is the spring coming? What is it like?",
+    "She made herself stronger by fighting with the wind."
+  ],
+  "The Last Lecture": [
+    "The brick walls are there for a reason. They're not there to keep us out. The brick walls are there to give us a chance to show how badly we want something.",
+    "Experience is what you get when you didn't get what you wanted.",
+    "We cannot change the cards we are dealt, just how we play the hand.",
+    "It's not about how to achieve your dreams, it's about how to lead your life.",
+    "When you're screwing up and nobody says anything to you anymore, that means they've given up on you."
+  ],
+  "Sapiens": [
+    "You could never convince a monkey to give you a banana by promising him limitless bananas after death in monkey heaven.",
+    "Culture tends to argue that it forbids only that which is unnatural. But from a biological perspective, nothing is unnatural.",
+    "History is something that very few people have been doing while everyone else was ploughing fields and carrying water buckets.",
+    "Money is the most universal and most efficient system of mutual trust ever devised.",
+    "We did not domesticate wheat. It domesticated us."
+  ],
+  "Dracula": [
+    "Listen to them, the children of the night. What music they make!",
+    "We learn from failure, not from success!",
+    "There are darknesses in life and there are lights, and you are one of the lights, the light of all lights.",
+    "I am longing to be with you, and by the sea, where we can talk together freely and build our castles in the air.",
+    "No man knows till he has suffered from the night how sweet and dear to his heart and eye the morning can be."
+  ],
+  "Why We Sleep": [
+    "The shorter your sleep, the shorter your life.",
+    "The best bridge between despair and hope is a good night's sleep.",
+    "Humans are the only species that deliberately deprive themselves of sleep for no apparent reason.",
+    "Sleep is the single most effective thing we can do to reset our brain and body health each day.",
+    "Routinely sleeping less than six or seven hours a night demolishes your immune system."
+  ],
+  "The Mahabharata": [
+    "What is here is found elsewhere. What is not here is nowhere.",
+    "Truth alone triumphs, not falsehood.",
+    "Time is the root of all things; time makes and unmakes all.",
+    "If the string of a bow is stretched too far, it will snap; and if it is not stretched enough, it will not work.",
+    "Dharma exists for the welfare of all beings."
+  ],
+  "21 Lessons for the 21st Century": [
+    "In a world deluged by irrelevant information, clarity is power.",
+    "Humans think in stories rather than in facts, numbers, or equations, and the simpler the story, the better.",
+    "Questions you cannot answer are usually far better for you than answers you cannot question.",
+    "If you want reliable information, pay good money for it.",
+    "The most important thing to know is what you don't know."
+  ],
+  "A Gentleman in Moscow": [
+    "If a man does not master his circumstances then he is bound to be mastered by them.",
+    "A gentleman should certainly be able to make an elegant exit.",
+    "For what matters in life is not whether we receive a round of applause; what matters is whether we have the courage to venture forth.",
+    "I'll tell you what is convenient: to sleep until noon and have someone bring you your breakfast on a tray.",
+    "By their very nature, human beings are so capricious, so complex, so delightfully contradictory."
+  ],
+  "Uncle Dynamite": [
+    "There is nothing like a good old-fashioned cup of tea for steadying the nerves.",
+    "Uncle Fred, who already had a rich criminal record, was just getting warmed up.",
+    "The English aristocracy is the finest body of men in the world, and also the most eccentric.",
+    "When trouble comes calling, one's first instinct is to flee\u2014one's second is to hide.",
+    "He was one of those people who, once they start telling a story, go on and on and on."
+  ],
+  "1984": [
+    "Big Brother is watching you.",
+    "War is peace. Freedom is slavery. Ignorance is strength.",
+    "Who controls the past controls the future. Who controls the present controls the past.",
+    "If you want a picture of the future, imagine a boot stamping on a human face\u2014forever.",
+    "Power is not a means; it is an end."
+  ],
+  "Homo Deus": [
+    "The most common reaction of the human mind to achievement is not satisfaction, but craving for more.",
+    "History began when humans invented gods, and will end when humans become gods.",
+    "In the twenty-first century, those who ride the train of progress will acquire divine abilities of creation and destruction.",
+    "The real question is not whether machines will think, but whether humans will.",
+    "Happiness does not really depend on objective conditions of either wealth, health or even community."
+  ],
+  "Angels & Demons": [
+    "Science and religion are not at odds. Science is simply too young to understand.",
+    "Faith is universal. Our specific methods for understanding it are arbitrary.",
+    "God answers all prayers, but sometimes his answer is 'no'.",
+    "The most dangerous enemy is that which no one fears.",
+    "Terrorism is not an expression of rage. Terrorism is a political weapon."
+  ],
+  "Deception Point": [
+    "Sometimes the greatest truths are hidden in the most unlikely places.",
+    "In politics, the perceived truth is more valuable than the actual truth.",
+    "The more sophisticated the technology, the easier it is to manipulate.",
+    "When the stakes are high enough, everyone is capable of deception.",
+    "Knowledge is a tool, and like all tools, its impact is in the hands of the user."
+  ],
+  "The Stranger": [
+    "I opened myself to the gentle indifference of the world.",
+    "Maman died today. Or yesterday maybe, I don't know.",
+    "Since we're all going to die, it's obvious that when and how don't matter.",
+    "I may not have been sure about what really did interest me, but I was absolutely sure about what didn't.",
+    "I looked up at the mass of signs and stars in the night sky and laid myself open for the first time to the benign indifference of the world."
+  ],
+  "Robots and Empire": [
+    "The advance of civilization is nothing but an exercise in the limiting of privacy.",
+    "A robot may not injure a human being or, through inaction, allow a human being to come to harm.",
+    "Humanity must spread to the stars, or die confined to a single world.",
+    "The important thing is to keep thinking and keep trying.",
+    "The Earth will not remain humanity's only home forever."
+  ],
+  "A Column of Fire": [
+    "In an era of religious hatred, love is the most dangerous heresy.",
+    "The truth is like a lion; you don't have to defend it. Let it loose; it will defend itself.",
+    "People will forgive you for being wrong, but they will never forgive you for being right.",
+    "In politics, the goal is not to be right but to prevail.",
+    "The world is changed not by the mighty but by the persistent."
+  ],
+  "The Metamorphosis": [
+    "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.",
+    "I cannot make you understand. I cannot make anyone understand what is happening inside me.",
+    "He was a tool of the boss, without brains or backbone.",
+    "The door could not be heard to slam; they had probably left it open, as is the custom in homes where a great misfortune has occurred.",
+    "Was he an animal, that music could move him so?"
+  ],
+  "Big Money": [
+    "Love conquers all, but it helps if you have a bit of money on the side.",
+    "There is nothing like a million pounds to make a man feel that the world is a beautiful place.",
+    "Wealth doesn't change people; it merely amplifies what they already are.",
+    "In matters of finance, as in love, hope springs eternal.",
+    "The only thing that can be said for money is that it works."
+  ],
+  "Dune": [
+    "I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration.",
+    "The mystery of life isn't a problem to solve, but a reality to experience.",
+    "A process cannot be understood by stopping it. Understanding must move with the flow of the process.",
+    "He who controls the spice controls the universe.",
+    "Deep in the human unconscious is a pervasive need for a logical universe that makes sense. But the real universe is always one step beyond logic."
+  ],
+  "Of Counsel": [
+    "Economic policy is not an exact science\u2014it is an art practiced under uncertainty.",
+    "India's economic journey has been one of missed opportunities and remarkable resilience.",
+    "Good counsel requires not just expertise but the courage to speak truth to power.",
+    "Development is not a destination but an evolving process.",
+    "The challenge for India is not growth itself, but making growth inclusive."
+  ],
+  "The Girl in Blue": [
+    "Love struck him like a well-aimed brick.",
+    "There is something about a girl in blue that does things to the male heart.",
+    "The English countryside has a way of making even the most troubled soul feel things might turn out all right.",
+    "Some men are born to trouble as the sparks fly upward.",
+    "When in doubt, consult a solicitor. When really in doubt, run."
+  ],
+  "Good Omens": [
+    "It may help to understand human affairs to be clear that most of the great triumphs and tragedies of history are caused, not by people being fundamentally good or fundamentally bad, but by people being fundamentally people.",
+    "God does not play dice with the universe; He plays an ineffable game of His own devising.",
+    "It wasn't a dark and stormy night. It should have been, but that's the weather for you.",
+    "An angel who did not so much Fall as Saunter Vaguely Downwards.",
+    "Most of the members of the convent were old-fashioned Satanists, like their parents and grandparents before them."
+  ],
+  "The Palace of Illusions": [
+    "We think we understand the ones we love. That is an illusion.",
+    "A woman's life is always a sacrifice\u2014her own or someone else's.",
+    "History is not always kind to those who lived it.",
+    "The palace of illusions was not made of marble and gold, but of hopes and dreams.",
+    "In every great story, there is a woman whose tale has gone untold."
+  ],
+  "Midnight's Children": [
+    "To understand just one life, you have to swallow the world.",
+    "Who what am I? My answer: I am the sum total of everything that went before me.",
+    "Reality is a question of perspective; the further you get from the past, the more concrete and plausible it seems.",
+    "Children are the vessels into which adults pour their poison.",
+    "Memory's truth, because memory has its own special kind."
+  ],
+  "Life over Two Beers": [
+    "The best stories are told over a drink, where truth and imagination blend freely.",
+    "India's middle class is the country's great engine of change.",
+    "Every city has its own rhythm, and to know it, you must walk its streets at odd hours.",
+    "Life rarely fits neatly into the categories we create for it.",
+    "In the end, we are all just stories\u2014make yours a good one."
+  ],
+  "Leave It to Psmith": [
+    "Blandings Castle brings out the worst in everybody.",
+    "Psmith was one of those individuals who, having once taken up a thing, show the tenacity of bulldogs.",
+    "The world may be divided into those who read poetry and those who do not.",
+    "There are moments in life when the most reassuring thing a man can do is take his umbrella and leave.",
+    "I am Psmith, with a silent P, as in phthisis, psychic, and ptarmigan."
+  ],
+  "Crime and Punishment": [
+    "Pain and suffering are always inevitable for a large intelligence and a deep heart.",
+    "The soul is healed by being with children.",
+    "To go wrong in one's own way is better than to go right in someone else's.",
+    "Man grows used to everything, the scoundrel!",
+    "The darker the night, the brighter the stars. The deeper the grief, the closer is God!"
+  ],
+  "The Marble Collector": [
+    "We are all collectors in our own way\u2014some collect objects, others collect moments.",
+    "The things we lose have a way of finding their way back to us, if not always in the form we expect.",
+    "Memory is a marble in the palm of your hand. Hold it too tightly and it might crack.",
+    "Everyone has a secret collection\u2014of regrets, of joys, of things they never said.",
+    "Sometimes the smallest things take up the most room in your heart."
+  ],
+  "Shalimar the Clown": [
+    "Everywhere was now a part of everywhere else.",
+    "Names are rich with memories and meanings.",
+    "When a culture dies, it dies in the hearts of its last believers.",
+    "Love is a trap. When it appears, it seems only light; but its weight can crush you.",
+    "Paradise is defined by what it has lost."
+  ],
+  "Harry Potter and the Half-Blood Prince": [
+    "It is the unknown we fear when we look upon death and darkness, nothing more.",
+    "Let us step into the night and pursue that flighty temptress, adventure.",
+    "It is impossible to manufacture or imitate love.",
+    "Do not pity the dead, Harry. Pity the living, and, above all those who live without love.",
+    "Dumbledore says people find it far easier to forgive others for being wrong than being right."
+  ],
+  "This Book Does Not Exist": [
+    "The universe is nothing more than a collection of stories that refuse to be told in order.",
+    "What if the world you know was written by someone who doesn't exist?",
+    "Reality is a first draft that nobody bothered to revise.",
+    "Every book is a door, and some doors open onto worlds that shouldn't exist.",
+    "Truth and fiction are merely two sides of the same impossible coin."
+  ],
+  "The Oath of the Vayuputras": [
+    "Evil is not the opposite of good; it is the imbalance in good.",
+    "What is the meaning of life? It is to give life a meaning.",
+    "The purpose of society is not to ensure that good always triumphs, but to ensure that evil is always challenged.",
+    "Any institution that is not challenged eventually becomes evil.",
+    "A man becomes God when his vision extends beyond himself."
+  ],
+  "The Lowland": [
+    "Without warning, the landscape could shift, and the world one had known could be irretrievable.",
+    "The past is not simply the past. It is the place from which we speak.",
+    "Some bonds are forged not by choice but by circumstance.",
+    "He understood that the loss of a sibling defined a person as much as the presence of one.",
+    "We all live in the shadow of something\u2014a memory, a place, a person we've lost."
+  ],
+  "Right Ho, Jeeves": [
+    "There are moments, Jeeves, when one asks oneself, 'Do trousers matter?'",
+    "Jeeves shimmered in and I arrested him with a raised hand.",
+    "Some minds are like soup in a poor restaurant\u2014better not stirred.",
+    "Love is not an exact science. It is not even an inexact science.",
+    "The voice of love seemed to call to me, but it was a wrong number."
+  ],
+  "The Da Vinci Code": [
+    "Everyone loves a conspiracy.",
+    "History is always written by the winners.",
+    "Men go to far greater lengths to avoid what they fear than to obtain what they desire.",
+    "The human mind has a primitive ego defense mechanism that negates all realities that produce too much stress for the brain to handle.",
+    "Faith\u2014acceptance of which we imagine to be true, that which we cannot prove."
+  ],
+  "The Book Thief": [
+    "I have hated words and I have loved them, and I hope I have made them right.",
+    "I am haunted by humans.",
+    "The only thing worse than a boy who hates you: a boy that loves you.",
+    "Like most misery, it started with apparent happiness.",
+    "Sometimes people are beautiful. Not in looks. Not in what they say. Just in what they are."
+  ],
+  "Inferno": [
+    "The darkest places in hell are reserved for those who maintain their neutrality in times of moral crisis.",
+    "Nothing is more creative\u2026 nor destructive\u2026 than a brilliant mind with a purpose.",
+    "Knowledge grows exponentially. The more we know, the greater our ability to learn.",
+    "Dante's Inferno teaches us that the path to paradise begins in hell.",
+    "Remember tonight\u2026 for it is the beginning of always."
+  ],
+  "The Catcher in the Rye": [
+    "Don't ever tell anybody anything. If you do, you start missing everybody.",
+    "I'm quite illiterate, but I read a lot.",
+    "People always clap for the wrong things.",
+    "Among other things, you'll find that you're not the first person who was ever confused and frightened and even sickened by human behavior.",
+    "The mark of the immature man is that he wants to die nobly for a cause, while the mark of the mature man is that he wants to live humbly for one."
+  ],
+  "So Long, and Thanks for All the Fish": [
+    "He felt that his whole life was some kind of dream and he sometimes wondered whose it was and whether they were enjoying it.",
+    "It was a nice day. All the days had been nice. There had been rather more than the average number of nice days.",
+    "He hoped and prayed that there wasn't an afterlife. Then he realized there was a contradiction involved here and merely hoped that there wasn't an afterlife.",
+    "The impossible often has a kind of integrity to it which the merely improbable lacks.",
+    "So long, and thanks for all the fish."
+  ],
+  "Harry Potter and the Chamber of Secrets": [
+    "It is our choices, Harry, that show what we truly are, far more than our abilities.",
+    "Fear of a name increases fear of the thing itself.",
+    "When in doubt, go to the library.",
+    "Hearing voices no one else can hear isn't a good sign, even in the wizarding world.",
+    "Fame is a fickle friend, Harry."
+  ],
+  "Fooled by Randomness": [
+    "Mild success can be explainable by skills and labor. Wild success is attributable to variance.",
+    "Heroes are heroes because they are heroic in behavior, not because they won or lost.",
+    "Probability is not a mere computation of odds on the dice or more complicated variants; it is the acceptance of the lack of certainty in our knowledge.",
+    "The person who did not find something is not the same as the person who did not look.",
+    "Luck is far more egalitarian than even intelligence."
+  ],
+  "Maximum City": [
+    "Bombay is not a city for the faint-hearted; it is a city for the hungry.",
+    "In Bombay, everyone is from somewhere else. Everyone is running from something or toward something.",
+    "The city promises you everything and delivers something entirely different.",
+    "Mumbai is a fast-forward version of the urban future.",
+    "There exists here a democracy of suffering, a fraternity of the desperate."
+  ],
+  "The Godfather": [
+    "I'm going to make him an offer he can't refuse.",
+    "Revenge is a dish that tastes best when served cold.",
+    "A man who doesn't spend time with his family can never be a real man.",
+    "Behind every great fortune there is a crime.",
+    "Friendship is everything. Friendship is more than talent. It is more than the government. It is almost the equal of family."
+  ],
+  "Joy": [
+    "If you love a flower, don't pick it up. Because if you pick it up, it dies.",
+    "Be realistic: Plan for a miracle.",
+    "Creativity is the greatest rebellion in existence.",
+    "Experience life in all possible ways\u2014good, bad, bitter, sweet, dark, light, summer, winter.",
+    "Life begins where fear ends."
+  ],
+  "Harry Potter and the Deathly Hallows": [
+    "Of course it is happening inside your head, Harry, but why on earth should that mean that it is not real?",
+    "Words are, in my not-so-humble opinion, our most inexhaustible source of magic.",
+    "The last enemy that shall be destroyed is death.",
+    "After all this time? Always.",
+    "Do not pity the dead, Harry. Pity the living, and, above all, those who live without love."
+  ],
+  "The Namesake": [
+    "We all came out of Gogol's overcoat.",
+    "That's the thing about books. They let you travel without moving your feet.",
+    "Pet names are a reminder that life is not always so serious, so formal, so complicated.",
+    "In so many ways, his family's story is like so many other stories: two continents, two cultures.",
+    "He is afraid of his own life. He is afraid of living."
+  ],
+  "Life, the Universe and Everything": [
+    "The key to flying is to throw yourself at the ground and miss.",
+    "In an infinite Universe anything can happen.",
+    "Isn't it enough to see that a garden is beautiful without having to believe that there are fairies at the bottom of it too?",
+    "He attacked everything in life with a mix of extraordinary genius and naive incompetence.",
+    "The ships hung in the sky in much the same way that bricks don't."
+  ],
+  "The Kite Runner": [
+    "For you, a thousand times over.",
+    "It may be unfair, but what happens in a few days, sometimes even a single day, can change the course of a whole lifetime.",
+    "There is a way to be good again.",
+    "A man who has no conscience, no goodness, does not suffer.",
+    "Children aren't coloring books. You don't get to fill them with your favorite colors."
+  ],
+  "Harry Potter and the Sorcerer's Stone": [
+    "It does not do to dwell on dreams and forget to live.",
+    "It takes a great deal of bravery to stand up to our enemies, but just as much to stand up to our friends.",
+    "There is no good and evil, there is only power and those too weak to seek it.",
+    "To the well-organized mind, death is but the next great adventure.",
+    "The truth. It is a beautiful and terrible thing, and should therefore be treated with caution."
+  ],
+  "I, Robot": [
+    "A robot may not injure a human being or, through inaction, allow a human being to come to harm.",
+    "You just can't differentiate between a robot and the very best of humans.",
+    "It is the obvious which is so difficult to see most of the time.",
+    "The saddest aspect of life right now is that science gathers knowledge faster than society gathers wisdom.",
+    "There is nothing so eternally adhesive as the memory of power."
+  ],
+  "The Count of Monte Cristo": [
+    "All human wisdom is contained in these two words\u2014Wait and Hope.",
+    "Life is a storm, my young friend. You will bask in the sunlight one moment, be shattered on the rocks the next.",
+    "There is neither happiness nor misery in the world; there is only the comparison of one state with another.",
+    "I am not proud, but I am happy; and happiness blinds, I think, more than pride.",
+    "On what slender threads do life and fortune hang."
+  ],
+  "The Search": [
+    "Search is the ultimate expression of the power of the individual.",
+    "The database of intentions is the aggregate results of every search ever entered.",
+    "Search reflects the real-time desires and wants of humanity.",
+    "The Web without search would be like a library without a card catalog.",
+    "Google's mission is to organize the world's information and make it universally accessible."
+  ],
+  "A Briefer History of Time": [
+    "Science is not only a discipline of reason but, also, one of romance and passion.",
+    "If time travel is possible, where are the tourists from the future?",
+    "The whole history of science has been the gradual realization that events do not happen in an arbitrary manner.",
+    "We are just an advanced breed of monkeys on a minor planet of a very average star. But we can understand the Universe.",
+    "Intelligence is the ability to adapt to change."
+  ],
+  "The First P. G. Wodehouse Omnibus": [
+    "It is never difficult to distinguish between a Scotsman with a grievance and a ray of sunshine.",
+    "She had a penetrating sort of laugh. Rather on the lines of a machine-gun.",
+    "The fascination of shooting as a sport depends almost wholly on whether you are at the right or wrong end of the gun.",
+    "There is only one way to achieve happiness on this terrestrial ball, and that is to have a clear conscience.",
+    "Some minds are like soup in a poor restaurant\u2014better not stirred."
+  ],
+  "The Silence of the Lambs": [
+    "A census taker once tried to test me. I ate his liver with some fava beans and a nice Chianti.",
+    "Believe me, you don't want Hannibal Lecter inside your head.",
+    "We begin by coveting what we see every day.",
+    "First principles, Clarice. Simplicity. Read Marcus Aurelius.",
+    "People don't always tell you what they think. They just see to it that you don't advance in life."
+  ],
+  "The Secret of the Nagas": [
+    "The opposite of love is not hate\u2014it is indifference.",
+    "A person's ethics and character are not tested in good times. It is only in bad times that a person shows how steadfast they are.",
+    "What appears as Evil to one may appear as Good to another.",
+    "True wisdom lies in understanding the duality of good and evil.",
+    "The universe has a way of balancing itself\u2014what we call karma."
+  ],
+  "Surely You're Joking, Mr. Feynman!": [
+    "The first principle is that you must not fool yourself\u2014and you are the easiest person to fool.",
+    "I was born not knowing and have had only a little time to change that here and there.",
+    "Study hard what interests you the most in the most undisciplined, irreverent and original manner possible.",
+    "Fall in love with some activity, and do it! Nobody ever figures out what life is all about.",
+    "What I cannot create, I do not understand."
+  ],
+  "Harry Potter and the Order of the Phoenix": [
+    "We've all got both light and dark inside us. What matters is the part we choose to act on.",
+    "Youth cannot know how age thinks and feels. But old men are guilty if they forget what it was to be young.",
+    "Things we lose have a way of coming back to us in the end, if not always in the way we expect.",
+    "Indifference and neglect often do much more damage than outright dislike.",
+    "Working hard is important. But there is something that matters even more: believing in yourself."
+  ],
+  "Operation Karakoram": [
+    "In the shadow of the Karakoram, secrets are written in ice and blood.",
+    "There are no rules in war, only survivors.",
+    "The mountains don't care about your mission; they will kill you all the same.",
+    "Trust is a luxury soldiers cannot afford.",
+    "At twenty thousand feet, the only enemy greater than the foe is the cold."
+  ]
+};
+
+/* ===== QUOTES LOOKUP ===== */
+function getBookQuotes(book) {
+  if (!book || !book.rating || book.rating < 4) return null;
+  const title = book.title;
+  // Try exact match
+  if (BOOK_QUOTES[title]) return BOOK_QUOTES[title];
+  // Try without parenthetical series info
+  const cleanTitle = title.replace(/\s*\([^)]*\)\s*$/, '').replace(/\s*;.*$/, '').trim();
+  if (BOOK_QUOTES[cleanTitle]) return BOOK_QUOTES[cleanTitle];
+  // Try without subtitle after colon
+  const shortTitle = cleanTitle.split(':')[0].trim();
+  if (BOOK_QUOTES[shortTitle]) return BOOK_QUOTES[shortTitle];
+  // Fuzzy: check if any key is contained in or contains the title
+  for (const key of Object.keys(BOOK_QUOTES)) {
+    if (cleanTitle.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(cleanTitle.toLowerCase())) {
+      return BOOK_QUOTES[key];
+    }
+  }
+  return null;
+}
+
+/* ===== SHOW QUOTES ===== */
+function showQuotes(title, author) {
+  const book = BOOKS.find(b => b.title === title && b.author === author);
+  if (!book) return;
+  const quotes = getBookQuotes(book);
+  if (!quotes || quotes.length === 0) return;
+
+  const cleanTitle = book.title.replace(/\s*\([^)]*\)\s*$/, '').replace(/\s*;.*$/, '').trim();
+
+  const modal = document.getElementById('quotesModalContent');
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeQuotes()">✕</button>
+    <div class="quotes-modal-header">
+      <div class="quotes-modal-icon">📜</div>
+      <div>
+        <div class="quotes-modal-title">${escHtml(cleanTitle)}</div>
+        <div class="quotes-modal-author">by ${escHtml(book.author)}</div>
+      </div>
+    </div>
+    <div class="quotes-modal-body">
+      <div class="quotes-list">
+        ${quotes.map(q => `
+          <div class="quote-item">
+            <div class="quote-item-text">${escHtml(q)}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('quotesOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQuotes() {
+  document.getElementById('quotesOverlay').classList.remove('open');
+  // Only restore scroll if main modal is also closed
+  if (!document.getElementById('modalOverlay').classList.contains('open')) {
+    document.body.style.overflow = '';
+  }
+}
+
+// Close quotes modal on overlay click
+document.addEventListener('DOMContentLoaded', function() {
+  const qOverlay = document.getElementById('quotesOverlay');
+  if (qOverlay) {
+    qOverlay.addEventListener('click', function(e) {
+      if (e.target === qOverlay) closeQuotes();
+    });
+  }
+});
 
 /* ===== PICKS TOGGLE ===== */
 function togglePicks() {
@@ -1649,6 +2356,7 @@ function renderBookCards(books) {
       else badges += '<span class="badge badge-lent">' + b.tracking_status + '</span>';
     }
     if (b.review) badges += '<span class="badge badge-review" onclick="event.stopPropagation();goToReview(\'' + escAttr(b.title) + '\',\'' + escAttr(b.author) + '\')" title="Click to read review">Review</span>';
+    if (getBookQuotes(b)) badges += '<span class="badge badge-quotes" onclick="event.stopPropagation();showQuotes(\'' + escAttr(b.title) + '\',\'' + escAttr(b.author) + '\')" title="See famous quotes">📜 Quotes</span>';
     if (b.status === 'currently-reading') badges += '<span class="badge badge-reading">Reading</span>';
     if (b.status === 'to-read') badges += '<span class="badge badge-toread">To Read</span>';
     
@@ -1904,6 +2612,7 @@ function openModal(title, author) {
     <div class="modal-body">
       ${catTags ? `<div class="modal-section"><h4>Categories</h4><div class="modal-categories">${catTags}</div></div>` : ''}
       ${book.review ? `<div class="modal-section"><h4>My Review</h4><div class="modal-review">${escHtml(book.review)}</div></div>` : ''}
+      ${getBookQuotes(book) ? `<div class="modal-section"><h4>Famous Quotes</h4><div><a class="modal-link" href="javascript:void(0)" onclick="showQuotes('${escAttr(book.title)}','${escAttr(book.author)}')" style="background:rgba(245,197,66,.1);border-color:rgba(245,197,66,.3);color:var(--gold)">📜 View ${getBookQuotes(book).length} Quotes from this Book</a></div></div>` : ''}
       <div class="modal-section">
         <h4>Links</h4>
         ${book.review ? `<div style="margin-bottom:8px"><a class="modal-link" href="javascript:void(0)" onclick="closeModal();goToReview('${escAttr(book.title)}','${escAttr(book.author)}')">📝 See full review in Reviews tab</a></div>` : ''}
