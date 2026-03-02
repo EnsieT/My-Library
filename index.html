@@ -245,11 +245,99 @@ a:hover { text-decoration: underline; }
 .bar-fill { height: 100%; border-radius: 3px; transition: width .6s ease; }
 .bar-count { min-width: 28px; text-align: right; color: var(--text2); font-size: .8rem; }
 
-/* ===== PICKS FOR YOU ===== */
-.picks-panel {
+/* ===== QUOTES SECTION ===== */
+.quotes-panel {
   max-width: 1400px;
   margin: 32px auto 24px;
   padding: 0 24px;
+}
+.quotes-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.quotes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+}
+.quote-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  position: relative;
+  transition: border-color .2s, transform .2s;
+}
+.quote-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.quote-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 10px; left: 16px;
+  font-size: 3rem;
+  color: var(--accent);
+  opacity: .25;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+.quote-text {
+  font-size: .95rem;
+  color: var(--text);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+.quote-source {
+  font-size: .8rem;
+  color: var(--text2);
+}
+.quote-source strong {
+  color: var(--accent2);
+}
+
+/* ===== PICKS FOR YOU ===== */
+.picks-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 1400px;
+  margin: 16px auto 0;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, rgba(245,197,66,.1), rgba(251,146,60,.1));
+  border: 1px solid rgba(245,197,66,.25);
+  border-radius: var(--radius);
+  color: var(--gold);
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  letter-spacing: .02em;
+}
+.picks-toggle-btn:hover {
+  background: linear-gradient(135deg, rgba(245,197,66,.18), rgba(251,146,60,.18));
+  border-color: var(--gold);
+}
+.picks-toggle-btn .chevron {
+  display: inline-block;
+  transition: transform .3s ease;
+  font-size: .75rem;
+}
+.picks-toggle-btn.open .chevron {
+  transform: rotate(180deg);
+}
+.picks-panel {
+  max-width: 1400px;
+  margin: 12px auto 24px;
+  padding: 0 24px;
+  display: none;
+}
+.picks-panel.visible {
+  display: block;
 }
 .picks-header { margin-bottom: 20px; }
 .picks-title {
@@ -981,8 +1069,41 @@ a:hover { text-decoration: underline; }
     <div class="insights-grid" id="insightsGrid"></div>
   </div>
 
+  <!-- Quotes Section -->
+  <div class="quotes-panel">
+    <h2 class="quotes-title">📜 Words from the Shelf</h2>
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <p class="quote-text">"The Answer to the Great Question... Of Life, the Universe and Everything... Is... Forty-two."</p>
+        <div class="quote-source"><strong>The Hitchhiker's Guide to the Galaxy</strong> — Douglas Adams</div>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"Those who have a 'why' to live, can bear with almost any 'how'."</p>
+        <div class="quote-source"><strong>Man's Search for Meaning</strong> — Viktor E. Frankl</div>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"All animals are equal, but some animals are more equal than others."</p>
+        <div class="quote-source"><strong>Animal Farm</strong> — George Orwell</div>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"You never really understand a person until you consider things from his point of view... Until you climb inside of his skin and walk around in it."</p>
+        <div class="quote-source"><strong>To Kill a Mockingbird</strong> — Harper Lee</div>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"He was given to understand that there was insanity in the family, but that he should look into it."</p>
+        <div class="quote-source"><strong>Summer Lightning</strong> — P.G. Wodehouse</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Picks For You Section -->
-  <div class="picks-panel">
+  <div style="max-width:1400px;margin:0 auto;padding:0 24px;">
+    <button class="picks-toggle-btn" id="picksToggleBtn" onclick="togglePicks()">
+      🌟 Picks For You — Personalized Recommendations
+      <span class="chevron">▼</span>
+    </button>
+  </div>
+  <div class="picks-panel" id="picksPanel">
     <div class="picks-header">
       <h2 class="picks-title">🌟 Picks For You</h2>
       <p class="picks-subtitle">Based on your reading history, ratings, and favorite genres — books we think you'd absolutely love.</p>
@@ -1127,6 +1248,14 @@ let RATING_FILTER = '';
 let SORT = 'title';
 let REVIEW_RATING_FILTER = '';  // rating filter specific to reviews tab
 let REVIEW_SORT = 'date-desc';  // sort for reviews tab
+
+/* ===== PICKS TOGGLE ===== */
+function togglePicks() {
+  const panel = document.getElementById('picksPanel');
+  const btn = document.getElementById('picksToggleBtn');
+  panel.classList.toggle('visible');
+  btn.classList.toggle('open');
+}
 
 /* ===== DATA LOADING ===== */
 async function loadData() {
