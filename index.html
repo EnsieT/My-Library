@@ -204,10 +204,43 @@ a:hover { text-decoration: underline; }
 }
 
 /* ===== INSIGHTS PANEL ===== */
+.insights-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 1400px;
+  margin: 20px auto 0;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, rgba(124,109,240,.08), rgba(167,139,250,.08));
+  border: 1px solid rgba(124,109,240,.25);
+  border-radius: var(--radius);
+  color: var(--accent2);
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  letter-spacing: .02em;
+}
+.insights-toggle-btn:hover {
+  background: linear-gradient(135deg, rgba(124,109,240,.15), rgba(167,139,250,.15));
+  border-color: var(--accent2);
+}
+.insights-toggle-btn .chevron {
+  display: inline-block;
+  transition: transform .3s ease;
+  font-size: .75rem;
+}
+.insights-toggle-btn.open .chevron {
+  transform: rotate(180deg);
+}
 .insights-panel {
   max-width: 1400px;
-  margin: 24px auto;
+  margin: 12px auto 24px;
   padding: 0 24px;
+  display: none;
+}
+.insights-panel.visible {
+  display: block;
 }
 .insights-grid {
   display: grid;
@@ -892,7 +925,7 @@ a:hover { text-decoration: underline; }
   }
   .stat-card { padding: 14px 10px; }
   .stat-card .num { font-size: 1.6rem; }
-  .insights-panel { padding: 0 12px; }
+  .insights-panel.visible { padding: 0 12px; }
   .insights-grid { grid-template-columns: 1fr; }
   .bar-label { min-width: 90px; font-size: .8rem; }
 
@@ -959,7 +992,7 @@ a:hover { text-decoration: underline; }
   .stat-card { padding: 12px 8px; }
   .stat-card .num { font-size: 1.3rem; }
   .stat-card .label { font-size: .7rem; }
-  .insights-panel { padding: 0 8px; }
+  .insights-panel.visible { padding: 0 8px; }
   .insight-card { padding: 14px; }
   .insight-card h3 { font-size: .85rem; }
   .bar-label { min-width: 70px; font-size: .75rem; }
@@ -1084,7 +1117,13 @@ a:hover { text-decoration: underline; }
 <!-- ===== OVERVIEW TAB ===== -->
 <div class="tab-content active" id="tab-overview">
   <div class="overview-stats" id="overviewStats"></div>
-  <div class="insights-panel">
+  <div style="max-width:1400px;margin:0 auto;padding:0 24px;">
+    <button class="insights-toggle-btn" id="insightsToggleBtn" onclick="toggleInsights()">
+      📊 Reading Insights — Top Authors, Categories & Rating Distribution
+      <span class="chevron">▼</span>
+    </button>
+  </div>
+  <div class="insights-panel" id="insightsPanel">
     <div class="insights-grid" id="insightsGrid"></div>
   </div>
 
@@ -1955,6 +1994,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+/* ===== INSIGHTS TOGGLE ===== */
+function toggleInsights() {
+  const panel = document.getElementById('insightsPanel');
+  const btn = document.getElementById('insightsToggleBtn');
+  panel.classList.toggle('visible');
+  btn.classList.toggle('open');
+}
 
 /* ===== PICKS TOGGLE ===== */
 function togglePicks() {
