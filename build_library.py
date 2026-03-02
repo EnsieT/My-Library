@@ -32,13 +32,33 @@ BOOK_OVERRIDES = [
     # Remove First Lie Wins
     {"title": "First Lie Wins", "_delete": True},
 
-    # Add Miguel Street as currently reading
+    # Miguel Street — finished reading
     {
         "title": "Miguel Street",
         "author": "V.S. Naipaul",
+        "rating": 2,
+        "status": "read",
+        "category_override": "Fiction/Literary Fiction",
+        "owned": True,
+        "condition": "Good",
+        "date_read": "2026/03/02",
+        "date_added": "2026/02/25",
+        "pages": "176",
+        "avg_rating": "3.95",
+    },
+
+    # Problem at Pollensa Bay — currently reading
+    {
+        "title": "Problem at Pollensa Bay and Other Stories",
+        "author": "Agatha Christie",
         "rating": 0,
         "status": "currently-reading",
-        "category_override": "Fiction/Literary Fiction",
+        "category_override": "Fiction/Mystery",
+        "owned": True,
+        "condition": "Good",
+        "date_added": "2026/03/02",
+        "pages": "272",
+        "avg_rating": "3.67",
     },
 
     # Example: to change a book's category or rating, add an entry:
@@ -565,7 +585,7 @@ def main():
             "status": gb['status'],
             "category": cat,
             "classifications": classifications,
-            "owned": owned_info is not None,
+            "in_collection": owned_info is not None,
             "condition": owned_info['condition'] if owned_info else None,
             "review": reviews.get(gb['title'], None),
             "date_read": gb.get('date_read', ''),
@@ -597,7 +617,7 @@ def main():
             "status": ovr.get('status', 'owned'),
             "category": cat,
             "classifications": classifications,
-            "owned": True,
+            "in_collection": True,
             "condition": ob.get('condition'),
             "review": reviews.get(ob['title'], None),
             "date_read": "",
@@ -618,7 +638,7 @@ def main():
             "status": add.get('status', 'read'),
             "category": cat,
             "classifications": classifications,
-            "owned": add.get('owned', False),
+            "in_collection": add.get('owned', False),
             "condition": add.get('condition'),
             "review": add.get('review'),
             "date_read": add.get('date_read', ''),
@@ -641,8 +661,8 @@ def main():
         for b in blist:
             if b is base:
                 continue
-            if b.get('owned'):
-                merged['owned'] = True
+            if b.get('in_collection'):
+                merged['in_collection'] = True
             if b.get('condition') and not merged.get('condition'):
                 merged['condition'] = b['condition']
             if b.get('review') and not merged.get('review'):

@@ -52,8 +52,7 @@
       "date_read": "2026/01/13",
       "date_added": "2026/01/12",
       "pages": "288",
-      "avg_rating": "3.85",
-      "tracking_status": "Lent to Anu"
+      "avg_rating": "3.85"
     },
     {
       "title": "Don't Lose Your Mind, Lose Your Weight",
@@ -76,8 +75,7 @@
       "date_read": "2025/12/28",
       "date_added": "2025/12/27",
       "pages": "279",
-      "avg_rating": "4.17",
-      "tracking_status": "Lent to Prashant"
+      "avg_rating": "4.17"
     },
     {
       "title": "The Chola Tigers: Avengers of Somnath",
@@ -310,6 +308,29 @@
       "avg_rating": "4.07"
     },
     {
+      "title": "Blood Like Mine",
+      "author": "Stuart Neville",
+      "rating": 0,
+      "status": "read",
+      "category": "Fiction/Thriller",
+      "classifications": [
+        {
+          "main": "Fiction",
+          "subs": [
+            "Fiction",
+            "Thriller"
+          ]
+        }
+      ],
+      "in_collection": false,
+      "condition": null,
+      "review": null,
+      "date_read": "",
+      "date_added": "2025/05/09",
+      "pages": "375",
+      "avg_rating": "3.62"
+    },
+    {
       "title": "The Stars, Like Dust (Galactic Empire, #1)",
       "author": "Isaac Asimov",
       "rating": 2,
@@ -515,8 +536,7 @@
       "date_read": "2024/09/07",
       "date_added": "2024/09/07",
       "pages": "0",
-      "avg_rating": "3.88",
-      "tracking_status": "Lost to Vaishali"
+      "avg_rating": "3.88"
     },
     {
       "title": "Mr. Everit's Secret: What I Learned from the World's Richest Man",
@@ -1697,8 +1717,7 @@
       "date_read": "2020/07/08",
       "date_added": "2020/07/08",
       "pages": "368",
-      "avg_rating": "4.37",
-      "tracking_status": "Lent to Payal"
+      "avg_rating": "4.37"
     },
     {
       "title": "The Mahabharata: Volume 1",
@@ -2284,8 +2303,7 @@
       "date_read": "2019/05/31",
       "date_added": "2019/05/30",
       "pages": "123",
-      "avg_rating": "4.03",
-      "tracking_status": "Lost to Swamini"
+      "avg_rating": "4.03"
     },
     {
       "title": "The Mahabharata Secret",
@@ -2590,8 +2608,7 @@
       "date_read": "",
       "date_added": "2018/12/29",
       "pages": "347",
-      "avg_rating": "3.91",
-      "tracking_status": "Lost to Vinay"
+      "avg_rating": "3.91"
     },
     {
       "title": "The Girl in Blue",
@@ -2689,8 +2706,7 @@
       "date_read": "2018/01/01",
       "date_added": "2018/02/20",
       "pages": "491",
-      "avg_rating": "4.25",
-      "tracking_status": "Lent to Anu"
+      "avg_rating": "4.25"
     },
     {
       "title": "The Palace of Illusions",
@@ -3337,8 +3353,7 @@
       "date_read": "",
       "date_added": "2017/02/12",
       "pages": "304",
-      "avg_rating": "3.69",
-      "tracking_status": "Lent to Shivani"
+      "avg_rating": "3.69"
     },
     {
       "title": "By the River Piedra I Sat Down and Wept",
@@ -3460,6 +3475,29 @@
       "date_added": "2013/05/09",
       "pages": "512",
       "avg_rating": "3.97"
+    },
+    {
+      "title": "The Footprints of God",
+      "author": "Greg Iles",
+      "rating": 3,
+      "status": "read",
+      "category": "Fiction/Thriller",
+      "classifications": [
+        {
+          "main": "Fiction",
+          "subs": [
+            "Fiction",
+            "Thriller"
+          ]
+        }
+      ],
+      "in_collection": false,
+      "condition": null,
+      "review": null,
+      "date_read": "",
+      "date_added": "2014/04/03",
+      "pages": "546",
+      "avg_rating": "3.79"
     },
     {
       "title": "Scion of Ikshvaku (Ram Chandra, #1)",
@@ -5828,6 +5866,29 @@
       "avg_rating": ""
     },
     {
+      "title": "",
+      "author": "Kurt Vonnegut",
+      "rating": 0,
+      "status": "owned",
+      "category": "Fiction/Satire",
+      "classifications": [
+        {
+          "main": "Fiction",
+          "subs": [
+            "Fiction",
+            "Satire"
+          ]
+        }
+      ],
+      "in_collection": true,
+      "condition": "Moderate",
+      "review": null,
+      "date_read": "",
+      "date_added": "",
+      "pages": "",
+      "avg_rating": ""
+    },
+    {
       "title": "The Bhagavad Gita (translated)",
       "author": "Bibek Debroy",
       "rating": 0,
@@ -5851,7 +5912,7 @@
       "avg_rating": ""
     },
     {
-      "title": "Chandogaya Upanishad",
+      "title": "Hatha Yoga Upanishad",
       "author": "Unknown/Swami",
       "rating": 0,
       "status": "owned",
@@ -6092,7 +6153,7 @@
       "avg_rating": ""
     },
     {
-      "title": "Galahad at Blandings",
+      "title": "Wodehouse at Blandings",
       "author": "P.G. Wodehouse",
       "rating": 0,
       "status": "owned",
@@ -6111,8 +6172,8 @@
       "review": null,
       "date_read": "",
       "date_added": "",
-      "pages": "224",
-      "avg_rating": "4.24"
+      "pages": "",
+      "avg_rating": ""
     },
     {
       "title": "Summer Moonshine",
